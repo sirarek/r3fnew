@@ -1,0 +1,60 @@
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@react-spring/three": "^9.7.3",
+    "@react-spring/web": "^9.7.3",
+    "@react-three/csg": "^3.1.0",
+    "@react-three/drei": "^9.56.24",
+    "@react-three/fiber": "^8.11.1",
+    "@react-three/postprocessing": "^2.15.11",
+    "@react-three/xr": "^5.7.1",
+    "@supabase/supabase-js": "^2.39.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
+    "postprocessing": "^6.33.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.2",
+    "sort-by": "^1.2.0",
+    "three": "^0.158.0",
+    "throttle-debounce": "^5.0.0",
+    "valtio": "^1.10.5",
+    "vite": "^5.1.4",
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.3.8"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@react-three/babel": "^1.0.2",
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "create-vite": "^5.2.1"
+  }
+}
