@@ -35,6 +35,7 @@ import {useLoaderData} from "react-router-dom";
 import {getProject} from "./db/db";
 import ARComponent from "./components/ARComponent";
 import SaveAsScreenshotButton from "./components/SaveAsScreenshotButton";
+import PdfView from "./components/Pdfviewe";
 
 const log = (c) => {
     console.log(c);
@@ -43,6 +44,7 @@ const log = (c) => {
 function App({ injectCanvas}) {
 
     const [floorDimensions, setFloorDimensions] = useState({x: 5, y: 5});
+
 
     const ref = useRef();
 
@@ -56,12 +58,11 @@ function App({ injectCanvas}) {
 
                 <Slider/>
                 <ARButton/>
-                <button onClick={() => {
-                    console.log(ref.current)
-                }}>eeel
-                </button>
-
-
+               
+                <PdfView width={800}/>
+           
+          
+            
             </div>
 
             <div style={{width: '100%', position: 'relative',height:"100%"}} ref={injectCanvas} />

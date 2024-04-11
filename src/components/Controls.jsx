@@ -5,6 +5,7 @@ import ProjectSelector from "./ProjectSelector";
 import SaveIButton from "./SaveIButton";
 import SaveAsScreenshotButton from "./SaveAsScreenshotButton";
 import React from "react";
+import SaveAsPdf from "./SaveAsPdf";
 
 
 
@@ -16,6 +17,9 @@ const Controls =(props)=>{
         <ProjectSelector/>
         <SaveIButton/>
         <SaveAsScreenshotButton/>
+        <SaveAsPdf/>
+        
+
     <Switch/>
 
     </>

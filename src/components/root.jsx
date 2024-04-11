@@ -25,6 +25,7 @@ export function create3DCanvas() {
         if (size.width < 1 || size.height < 1) return null;
         root.configure({size: {width: size.width, height: size.height}, events, camera: {position: [0, 0, 50]}});
         const r3fState = root.render(
+            
             <XR>
                 <color attach="background" args={["gray"]}/>
                 <Environment preset="apartment"/>
@@ -35,7 +36,8 @@ export function create3DCanvas() {
                 <CameraControl/>
 
                 <Lights/>
-
+               
+               
                 <Postprocessing/>
                 {/*<ARComponent/>*/}
             </XR>

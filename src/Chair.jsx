@@ -53,7 +53,7 @@ const Chair = (props) => {
     const mapping={
       depth:"z",
       width:"x",
-      height:"y"
+        height:"y"
 
 
     }

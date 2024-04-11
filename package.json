@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-pdf/renderer": "^3.4.0",
     "@react-spring/three": "^9.7.3",
     "@react-spring/web": "^9.7.3",
     "@react-three/csg": "^3.1.0",
@@ -21,6 +22,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.2",
+    "react-sizeme": "^3.0.2",
     "sort-by": "^1.2.0",
     "three": "^0.158.0",
     "throttle-debounce": "^5.0.0",

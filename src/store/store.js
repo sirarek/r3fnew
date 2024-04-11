@@ -9,6 +9,7 @@ const useDimensionStore = create((set,get) => ({
     wallsResrticrion: true,
     clickedChair: '',
     chairs:[],
+    showPdf:false,
     P:true,
     selectedFurniture: "chair",
     selectFurniture: ((item)=>{set(state=>({selectedFurniture:item}))}),
@@ -42,6 +43,9 @@ const useDimensionStore = create((set,get) => ({
         floorX,
         thickness
     })),
+
+    setShowPdf:(bool)=>set(state=>({showPdf:bool})),
+
     
     updateItemDimensions: (item,dim)=>{
         const chrs = get().chairs
