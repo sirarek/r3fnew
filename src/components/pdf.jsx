@@ -1,6 +1,8 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import { SizeMe } from 'react-sizeme';
+import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+
+import useDimensionStore from '../store/store';
+
 
 // Create styles
 const styles = StyleSheet.create({
@@ -19,18 +21,22 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const MyDocument = () => ( 
+const MyDocument = ({data}) => {
+return ( 
+
 
 
     <Document>
 
         <Page size="A4" style={styles.page} width={"10%"} >
+        
             <View style={styles.section}>
-                <Text>Section #1</Text>
-                <Text>Section #1</Text>
-                <Text>Section #1</Text>
-                <Text>Section #1</Text>
-                <Text>Section #1</Text>
+            
+            {data&& data.map(s=>
+            <Image src={s}/>
+
+            )}
+               
             </View>
             <View style={styles.section}>
                 <Text>Section #2</Text>
@@ -38,7 +44,7 @@ const MyDocument = () => (
         </Page>
         
     </Document>  
-    )
+    )}
   
     
 

@@ -12,6 +12,7 @@ const useDimensionStore = create((set,get) => ({
     showPdf:false,
     P:true,
     selectedFurniture: "chair",
+    screenShots:[],
     selectFurniture: ((item)=>{set(state=>({selectedFurniture:item}))}),
 
     roomsize :(state)=>{get({width:state.floorX, height:state.wallsHeight,depth:state.floorY})},
@@ -45,8 +46,10 @@ const useDimensionStore = create((set,get) => ({
     })),
 
     setShowPdf:(bool)=>set(state=>({showPdf:bool})),
+    addScreenshot:(img)=>set(state=>({screenShots:[...state.screenShots,img]})),
 
-    
+
+
     updateItemDimensions: (item,dim)=>{
         const chrs = get().chairs
         const itemIndex = chrs.findIndex(el=>el.id==item);

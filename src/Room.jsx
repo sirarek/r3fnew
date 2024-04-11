@@ -96,6 +96,7 @@ const Room = ({floorDimensions}) => {
     //   // console.log(scene)
     // }, [wallsRestriction, angle,data]);
 
+    const addScreenshot = useDimensionStore(state=>state.addScreenshot)
     const sendScreenshot = () => {
 
         // gl.render(scene, camera);
@@ -103,15 +104,16 @@ const Room = ({floorDimensions}) => {
         const x = threeState();
         const xgl = x.gl;
   x.setSizeOverride(500,500,1);
-  x.camera.position.setZ(25)
-  x.camera.position.setY(10)
- x.camera.rotateZ(Math.PI/2);
+//   x.camera.position.setZ(25)
+//   x.camera.position.setY(10)
+//  x.camera.rotateZ(Math.PI/2);
   xgl.render(x.scene,x.camera);
 
 
 
         const screenshot = xgl.domElement.toDataURL('image/png');
-
+        addScreenshot(screenshot)
+        
         window.postMessage({screenshotData: screenshot});
     }
     useLayoutEffect(

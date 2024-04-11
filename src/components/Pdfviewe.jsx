@@ -7,6 +7,8 @@ import useDimensionStore from '../store/store';
  const PdfView = () =>   {
     const showPdf = useDimensionStore(state=>state.showPdf)
     const setShowPdf = useDimensionStore(state=>state.setShowPdf)
+    const screenshots = useDimensionStore(state=>state.screenShots)
+
 return (
    
     <div className='ell' style={{display:showPdf?"block":"none"}}>
@@ -15,7 +17,7 @@ return (
         
        <div className='pdf-buttons-wrapper'>
     <PDFViewer width={500} height={400}>
-        <MyDocument />
+        <MyDocument data={screenshots}/>
     </PDFViewer>
     <button onClick={()=>setShowPdf(false)}>Close</button>
     </div>

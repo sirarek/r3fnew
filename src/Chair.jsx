@@ -168,7 +168,7 @@ const Chair = (props) => {
       // </label>
       // {/*{props.id.toString().slice(0, 4)}*/}
       // </Html>
-      <FurnitureProperties id = {props.id} changeWidthHandler={changeWidthHandler} data = {itemRef.current.children[0]}/>
+      <FurnitureProprties id = {props.id} changeWidthHandler={changeWidthHandler} data = {itemRef.current.children[0]}/>
     )}
     {
       props.type=="chair"?
