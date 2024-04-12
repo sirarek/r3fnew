@@ -17,7 +17,13 @@ const styles = StyleSheet.create({
       
         padding: 10,
         flexGrow: 1
-    }
+    },
+    header: {
+        fontSize: 12,
+        marginBottom: 20,
+        textAlign: 'center',
+        color: 'grey',
+      },
 });
 
 // Create Document Component
@@ -28,19 +34,21 @@ return (
 
     <Document>
 
-        <Page size="A4" style={styles.page} width={"10%"} >
+        <Page size="A4" style={styles.page}  >
+       
         
             <View style={styles.section}>
+            <Text style={styles.header} fixed>
+       Cela +
+      </Text>
             
-            {data&& data.map(s=>
-            <Image src={s}/>
+            {data&& data.map((s,i)=>
+            <Image src={s} key={i}/>
 
             )}
                
             </View>
-            <View style={styles.section}>
-                <Text>Section #2</Text>
-            </View>
+        
         </Page>
         
     </Document>  
