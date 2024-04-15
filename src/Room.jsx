@@ -1,5 +1,5 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
-import {useFrame, useThree} from "@react-three/fiber";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
 import Floor from "./components/floor";
 import Wall from "./components/wall";
 import useDimensionStore from "./store/store";
@@ -20,12 +20,12 @@ import {
     Html,
     useHelper,
 } from "@react-three/drei";
-import {Geometry, Base, Subtraction, Addition} from "@react-three/csg";
-import {exp} from "three/examples/jsm/nodes/math/MathNode";
-import {getProject} from "./db/db";
+import { Geometry, Base, Subtraction, Addition } from "@react-three/csg";
+import { exp } from "three/examples/jsm/nodes/math/MathNode";
+import { getProject } from "./db/db";
 // import {useLoaderData} from "react-router-dom";
 
-const Room = ({floorDimensions}) => {
+const Room = ({ floorDimensions }) => {
     const wallsHeight = useDimensionStore((state) => state.wallsHeight);
     const floorX = Number(useDimensionStore((state) => state.floorX));
     const floorY = Number(useDimensionStore((state) => state.floorY));
@@ -47,7 +47,7 @@ const Room = ({floorDimensions}) => {
 
     // const data = useLoaderData();
 
-// console.log(data);
+    // console.log(data);
 
     const helper = new PlaneHelper(plane, wallsRestriction ? 100 : 0);
     // const [showWall,setShowWall] = useState([100,100,100,100])  // const [showWall,setShowWall] = useState([100,100,100,100])
@@ -57,14 +57,14 @@ const Room = ({floorDimensions}) => {
         console.log("adding chair");
 
         chairs.length < 2 &&
-        addChair({
-            position: e.point.toArray(),
-            id: Math.random(),
-            type: selectedFurniture,
-            dimensions: {},
-        });
+            addChair({
+                position: e.point.toArray(),
+                id: Math.random(),
+                type: selectedFurniture,
+                dimensions: {},
+            });
     };
-    const {scene, gl, camera,} = useThree();
+    const { scene, gl, camera, } = useThree();
     const threeState = useThree(state => state.get);
     let cam = camera.position.x;
     const wall1 = useRef();
@@ -96,30 +96,30 @@ const Room = ({floorDimensions}) => {
     //   // console.log(scene)
     // }, [wallsRestriction, angle,data]);
 
-    const addScreenshot = useDimensionStore(state=>state.addScreenshot)
+    const addScreenshot = useDimensionStore(state => state.addScreenshot)
     const sendScreenshot = () => {
 
         // gl.render(scene, camera);
 
         const x = threeState();
         const xgl = x.gl;
-  x.setSizeOverride(500,500,1);
-//   x.camera.position.setZ(25)
-//   x.camera.position.setY(10)
-//  x.camera.rotateZ(Math.PI/2);
-  xgl.render(x.scene,x.camera);
+        x.setSizeOverride(500, 500, 1);
+        //   x.camera.position.setZ(25)
+        //   x.camera.position.setY(10)
+        //  x.camera.rotateZ(Math.PI/2);
+        xgl.render(x.scene, x.camera);
 
 
 
         const screenshot = xgl.domElement.toDataURL('image/png');
         addScreenshot(screenshot)
-        
-        window.postMessage({screenshotData: screenshot});
+
+        window.postMessage({ screenshotData: screenshot });
     }
     useLayoutEffect(
         () => window.addEventListener("message", (e) => {
             console.log();
-            if (e.data == 'create screenshot') {
+            if (e.data === 'create screenshot') {
 
                 sendScreenshot();
             }
@@ -133,7 +133,7 @@ const Room = ({floorDimensions}) => {
             }}
         >
             {/* <group rotation={[-Math.PI / 2, 0, -Math.PI / 4]}> */}
-            <Floor data={floorDimensions} handler={addConeHandler}/>
+            <Floor data={floorDimensions} handler={addConeHandler} />
 
             <Wall
                 window={true}
@@ -181,7 +181,7 @@ const Room = ({floorDimensions}) => {
 };
 export default Room;
 
-export async function loader({params}) {
+export async function loader({ params }) {
 
     const result = await getProject(params.projId);
 
