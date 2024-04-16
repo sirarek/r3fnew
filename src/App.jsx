@@ -36,6 +36,7 @@ import {getProject} from "./db/db";
 import ARComponent from "./components/ARComponent";
 import SaveAsScreenshotButton from "./components/SaveAsScreenshotButton";
 import PdfView from "./components/Pdfviewe";
+import UI from "./ui/Ui";
 
 const log = (c) => {
     console.log(c);
@@ -57,6 +58,7 @@ function App({ injectCanvas}) {
                 <Controls handler={setFloorDimensions}/>
 
                 <Slider/>
+                <UI/>
                 <ARButton/>
                
                 <PdfView width={800}/>
