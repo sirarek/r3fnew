@@ -5,6 +5,7 @@ import {
 import React from "react";
 import DimensionSection from "../components/DimensionsSection";
 import ItemSelector from "../components/itemSelector";
+import ScreenshotsPreview from "../components/screenshotsPreview";
 
 const UI = props => {
     let drawerWidth = 340;
@@ -25,6 +26,8 @@ const UI = props => {
             <DimensionSection/>
             <Divider/>
             <ItemSelector/>
+            <Divider/>
+            <ScreenshotsPreview/>
         </Drawer>
     )
 }
