@@ -18,6 +18,7 @@ import {LineWeight, Straight, Straighten, SyncAlt, TrendingFlat} from "@mui/icon
 import MuiInput from '@mui/material/Input';
 import HeightIcon from '@mui/icons-material/Height';
 import useDimensionStore from "../store/store";
+import SliderInput from "../components/SliderInput";
 
 
 const UI = props => {
@@ -36,7 +37,7 @@ const UI = props => {
     const Input = styled(MuiInput)`
         width: 42px;
     `;
-    
+
     const handleSliderChange = (event, newValue) => {
         updateWidth(newValue);
     };
@@ -68,7 +69,6 @@ const UI = props => {
         >
 
             <List>
-
                 <ListItem key={"dimensions"} disablePadding>
 
                     <ListItemIcon>
@@ -76,175 +76,63 @@ const UI = props => {
                     </ListItemIcon>
                     <ListItemText primary={"dimensions"}/>
 
-
                 </ListItem>
-                <Box sx={{width: 250}}>
-                    <Typography id="input-slider" gutterBottom>
-                        Width
-                    </Typography>
-                    <Grid container spacing={2} alignItems="center">
-                        <ListItem key={"width"}>
-
-                            <Grid item>
-
-                                <TrendingFlat id="input-slider"/>
-                            </Grid>
-                            <Grid item xs>
-                                <Slider
-                                    min={1}
-                                    max={25}
-                                    value={width}
-                                    onChange={handleSliderChange}
-                                    aria-labelledby="input-slider"
-                                />
-
-                            </Grid>
-                            <Grid item>
-                                <Input
-                                    value={width}
-                                    size="small"
-                                    onChange={handleInputChange}
-                                    inputProps={{
-                                        step: 1,
-                                        min: 1,
-                                        max: 25,
-                                        type: 'number',
-                                        'aria-labelledby': 'input-slider',
-                                    }}
-                                />
-                            </Grid>
-
-                        </ListItem>
-
-                    </Grid>
-
-                </Box>
-                <Box sx={{width: 250}}>
-                                    <Typography id="input-slider-height" gutterBottom>
-                                        Length
-                                    </Typography>
-                                    <Grid container spacing={2} alignItems="center">
-                                        <ListItem key={"length"}>
-                
-                                            <Grid item>
-                
-                                                <Straight/>
-                                            </Grid>
-                                            <Grid item xs>
-                                                <Slider
-                                                    min={1}
-                                                    max={25}
-                                                    step={1}
-                                                    value={length}
-                                                    onChange={(e) => updateLength(e.target.value)}
-                                                    aria-labelledby="input-slider-hegiht"
-                                                />
-                
-                                            </Grid>
-                                            <Grid item>
-                                                <Input
-                                                    value={length}
-                                                    size="small"
-                                                    onChange={(e) => updateLength(e.target.value)}
-                                                    inputProps={{
-                                                        step: 0.1,
-                                                        min: 1,
-                                                        max: 5,
-                                                        type: 'number',
-                                                        'aria-labelledby': 'input-slider-depth',
-                                                    }}
-                                                />
-                                            </Grid>
-                
-                                        </ListItem>
-                
-                                    </Grid>
-                
-                                </Box>
-                <Box sx={{width: 250}}>
-                    <Typography id="input-slider-height" gutterBottom>
-                        Height
-                    </Typography>
-                    <Grid container spacing={2} alignItems="center">
-                        <ListItem key={"height"}>
-
-                            <Grid item>
-
-                                <HeightIcon/>
-                            </Grid>
-                            <Grid item xs>
-                                <Slider
-                                    min={1}
-                                    max={5}
-                                    step={0.1}
-                                    value={wallsHeight}
-                                    onChange={(e) => updateWallsHeight(e.target.value)}
-                                    aria-labelledby="input-slider-hegiht"
-                                />
-
-                            </Grid>
-                            <Grid item>
-                                <Input
-                                    value={wallsHeight}
-                                    size="small"
-                                    onChange={(e) => updateWallsHeight(e.target.value)}
-                                    inputProps={{
-                                        step: 0.1,
-                                        min: 1,
-                                        max: 5,
-                                        type: 'number',
-                                        'aria-labelledby': 'input-slider-height',
-                                    }}
-                                />
-                            </Grid>
-
-                        </ListItem>
-
-                    </Grid>
-
-                </Box><Box sx={{width: 250}}>
-                    <Typography id="input-slider-wall-thickness" gutterBottom>
-                        Wall Thickness
-                    </Typography>
-                    <Grid container spacing={2} alignItems="center">
-                        <ListItem key={"thicknes"}>
-
-                            <Grid item>
-
-                                <LineWeight/>
-                            </Grid>
-                            <Grid item xs>
-                                <Slider
-                                    min={0.1}
-                                    max={1}
-                                    step={0.1}
-                                    value={thickness}
-                                    onChange={(e) => updateThichkness(e.target.value)}
-                                    aria-labelledby="input-slider-hegiht"
-                                />
-
-                            </Grid>
-                            <Grid item>
-                                <Input
-                                    value={thickness}
-                                    size="small"
-                                    onChange={(e) => updateThichkness(e.target.value)}
-                                    inputProps={{
-                                        step: 0.1,
-                                        min: 0.1,
-                                        max: 1,
-                                        type: 'number',
-                                        'aria-labelledby': 'input-slider-height',
-                                    }}
-                                />
-                            </Grid>
-
-                        </ListItem>
-
-                    </Grid>
-
-                </Box>
-
+                <SliderInput
+                    inputName={"Width"}
+                    inputValue={width}
+                    inputHandler={updateWidth}
+                    sliderHandler={handleSliderChange}
+                    inputProps={{
+                        step: 1,
+                        min: 1,
+                        max: 25,
+                        type: 'number',
+                        'aria-labelledby': 'input-slider',
+                    }}>
+                    <TrendingFlat id="input-slider"/>
+                </SliderInput>
+                <SliderInput
+                    inputName={"Length"}
+                    inputValue={length}
+                    inputHandler={updateLength}
+                    sliderHandler={updateLength}
+                    inputProps={{
+                        step: 1,
+                        min: 1,
+                        max: 25,
+                        type: 'number',
+                        'aria-labelledby': 'input-slider-lenght',
+                    }}>
+                    <Straight/>
+                </SliderInput>
+                <SliderInput
+                    inputName={"Height"}
+                    inputValue={wallsHeight}
+                    inputHandler={updateWallsHeight}
+                    sliderHandler={updateWallsHeight()}
+                    inputProps={{
+                        step: 0.1,
+                        min: 1,
+                        max: 5,
+                        type: 'number',
+                        'aria-labelledby': 'input-slider-height',
+                    }}>
+                    <HeightIcon/>
+                </SliderInput>
+                <SliderInput
+                    inputName={"Wall Thickness"}
+                    inputValue={thickness}
+                    inputHandler={updateThichkness}
+                    sliderHandler={updateupdateThichkness}
+                    inputProps={{
+                        step: 0.1,
+                        min: 0.1,
+                        max: 1,
+                        type: 'number',
+                        'aria-labelledby': 'input-slider-height',
+                    }}>
+                    <LineWeight/>
+                </SliderInput>
             </List>
 
             <Divider/>
