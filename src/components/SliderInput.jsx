@@ -14,8 +14,9 @@ const SilderInput =({children, inputName, sliderHandler,inputHandler,inputValue,
                 </Grid>
                 <Grid item xs>
                     <Slider
-                        min={1}
-                        max={25}
+                        min={inputProps.min}
+                        max={inputProps.max}
+                        step={inputProps.step}
                         value={inputValue}
                         onChange={sliderHandler}
                         aria-labelledby="input-slider"
