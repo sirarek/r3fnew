@@ -1,31 +1,18 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
+import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
+import {useFrame, useThree} from "@react-three/fiber";
 import Floor from "./components/floor";
 import Wall from "./components/wall";
 import useDimensionStore from "./store/store";
 import {
     Vector3,
-    Matrix4,
-    Box3,
-    BoxHelper,
     Plane,
     PlaneHelper,
 } from "three";
-import {
-    Center,
-    Cone,
-    OrbitControls,
-    PivotControls,
-    Text,
-    Html,
-    useHelper,
-} from "@react-three/drei";
-import { Geometry, Base, Subtraction, Addition } from "@react-three/csg";
-import { exp } from "three/examples/jsm/nodes/math/MathNode";
-import { getProject } from "./db/db";
+
+import {getProject} from "./db/db";
 // import {useLoaderData} from "react-router-dom";
 
-const Room = ({ floorDimensions }) => {
+const Room = ({floorDimensions}) => {
     const wallsHeight = useDimensionStore((state) => state.wallsHeight);
     const floorX = Number(useDimensionStore((state) => state.floorX));
     const floorY = Number(useDimensionStore((state) => state.floorY));
@@ -56,15 +43,15 @@ const Room = ({ floorDimensions }) => {
 
         console.log("adding chair");
 
-        chairs.length <5 &&
-            addChair({
-                position: e.point.toArray(),
-                id: Math.random(),
-                type: selectedFurniture,
-                dimensions: {},
-            });
+        chairs.length < 5 &&
+        addChair({
+            position: e.point.toArray(),
+            id: Math.random(),
+            type: selectedFurniture,
+            dimensions: {},
+        });
     };
-    const { scene, gl, camera, } = useThree();
+    const {scene, gl, camera,} = useThree();
     const threeState = useThree(state => state.get);
     let cam = camera.position.x;
     const wall1 = useRef();
@@ -82,7 +69,7 @@ const Room = ({ floorDimensions }) => {
     // useEffect(() => {
     //   if (data){
     //     console.log(data)
-    //
+//
     //     setFromdb(JSON.parse(data.data))
     //   }
     //   console.log(angle);
@@ -90,7 +77,7 @@ const Room = ({ floorDimensions }) => {
     //     scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
     //   } else {
     //     scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
-    //
+//
     //     scene.add(helper);
     //   }
     //   // console.log(scene)
@@ -98,31 +85,29 @@ const Room = ({ floorDimensions }) => {
 
     const addScreenshot = useDimensionStore(state => state.addScreenshot)
     const sendScreenshot = () => {
-        const screenshotObject ={
-            id:crypto.randomUUID(),
-            src:""
+        const screenshotObject = {
+            id: crypto.randomUUID(),
+            src: ""
 
 
         }
 
-        // gl.render(scene, camera);
+        gl.render(scene, camera);
 
         const x = threeState();
         const xgl = x.gl;
         x.setSizeOverride(500, 500, 1);
-        //   x.camera.position.setZ(25)
-        //   x.camera.position.setY(10)
-        //  x.camera.rotateZ(Math.PI/2);
+
+
         xgl.render(x.scene, x.camera);
 
 
-
         const screenshot = xgl.domElement.toDataURL('image/png');
-        screenshotObject["src"]  =screenshot
+        screenshotObject["src"] = screenshot
         addScreenshot(screenshotObject)
+        x.setSizeOverride(window.haxyPaxy.w,window.haxyPaxy.h)
 
-
-        window.postMessage({ screenshotData: screenshot });
+        window.postMessage({screenshotData: screenshot});
     }
     useLayoutEffect(
         () => window.addEventListener("message", (e) => {
@@ -141,7 +126,7 @@ const Room = ({ floorDimensions }) => {
             }}
         >
             {/* <group rotation={[-Math.PI / 2, 0, -Math.PI / 4]}> */}
-            <Floor data={floorDimensions} handler={addConeHandler} />
+            <Floor data={floorDimensions} handler={addConeHandler}/>
 
             <Wall
                 window={true}
@@ -189,7 +174,7 @@ const Room = ({ floorDimensions }) => {
 };
 export default Room;
 
-export async function loader({ params }) {
+export async function loader({params}) {
 
     const result = await getProject(params.projId);
 

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {extend,createRoot,events} from "@react-three/fiber";
+import {extend, createRoot, events} from "@react-three/fiber";
 import App from "../App";
 import {Environment} from "@react-three/drei";
 import Mline from "./MLine";
@@ -17,15 +17,15 @@ const so = {
     width: null,
     height: null,
 };
+
 export function create3DCanvas() {
     const canvas = document.createElement('canvas');
     const root = createRoot(canvas);
 
-    function extracted(size,dpr) {
+    function extracted(size, dpr) {
         if (size.width < 1 || size.height < 1) return null;
         root.configure({size: {width: size.width, height: size.height}, events, camera: {position: [0, 0, 50]}});
         const r3fState = root.render(
-            
             <XR>
                 <color attach="background" args={["gray"]}/>
                 <Environment preset="apartment"/>
@@ -36,8 +36,8 @@ export function create3DCanvas() {
                 <CameraControl/>
 
                 <Lights/>
-               
-               
+
+
                 <Postprocessing/>
                 {/*<ARComponent/>*/}
             </XR>
@@ -47,38 +47,38 @@ export function create3DCanvas() {
 
     const r3fState = extracted({});
 
-    const injectCanvas = wrapper =>
-    {
+    const injectCanvas = wrapper => {
         if (!wrapper) return;
 
         wrapper.appendChild(canvas);
-        const observer = new ResizeObserver(el=>{
-            const {width, height}= el[0]["contentRect"];
-
-            console.log(el);
-            root.configure({size: {width: width, height: height}});
-            console.log(`window width: ${window.innerWidth} width from observer ${width} height: ${window.innerHeight} height from observer ${height}`)
-
+        const observer = new ResizeObserver(el => {
+                const {width, height} = el[0]["contentRect"];
+                console.log("zmiany")
+                console.log(el);
+                root.configure({size: {width: width, height: height}});
+                console.log(`window width: ${window.innerWidth} width from observer ${width} height: ${window.innerHeight} height from observer ${height}`)
+                window.haxyPaxy = {w:window.innerWidth,h:window.innerHeight}
             }
         );
 
-
-
         root.configure({size: {width: wrapper.clientWidth, height: wrapper.clientHeight}})
-
+//here
         observer.observe(wrapper);
     };
 
-    const stateData  = extracted({width:1,height:1});
-        stateData.setState(
+    const stateData = extracted({width: 1, height: 1});
+    stateData.setState(
         {
             setSizeOverride(width, height, dpr) {
                 so.width = width;
                 so.height = height;
-                extracted({ width, height, dpr });
-            },resetSizeOverride() {
+                extracted({width, height, dpr});
+            },
+            resetSizeOverride() {
                 so.width = null;
-                so.height = null}}
+                so.height = null
+            }
+        }
     )
     return {
         injectCanvas,

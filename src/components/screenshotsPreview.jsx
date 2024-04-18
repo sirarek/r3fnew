@@ -18,7 +18,7 @@ export default function ScreenshotsPreview() {
                 <ImageListItem key={item.id}>
 
 
-                    <img data-Ccd={item.id}
+                    <img 
                         //                        srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                          src={`${item.src}`}
 
