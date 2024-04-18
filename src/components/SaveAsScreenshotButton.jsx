@@ -11,7 +11,7 @@ function SaveAsScreenshotButton(props) {
     }
 
     return (
-        <Button className={"screen-shot-save"} onClick={handleClick} type={"button"}>Save as a screenshot</Button>
+        <Button className={"screen-shot-save"} onClick={handleClick} type={"button"}>Capture Screenshot</Button>
 
     );
 }
