@@ -12,8 +12,7 @@ import Wall from "./components/wall";
 import Lights from "./components/Lights";
 import {VRButton, ARButton, XR, Controllers, Hands} from '@react-three/xr'
 import * as THREE from "three";
-import DimensionsInput from "./components/dimensions";
-import Slider from "./components/slider";
+
 import {
     Cone,
     CameraControls,
@@ -25,7 +24,7 @@ import useDimensionStore from "./store/store";
 import {Vector3, Quaternion, Box3, Sphere} from "three";
 import ChairModel from "./components/chairModel";
 import Room from "./Room";
-import Controls from "./components/Controls";
+//import Controls from "./components/Controls";
 import Chair from "./Chair";
 import Chairss from "./Chairss";
 import CameraControl from "./components/CameraContro";
@@ -34,7 +33,6 @@ import TestBox from "./Box";
 import {useLoaderData} from "react-router-dom";
 import {getProject} from "./db/db";
 import ARComponent from "./components/ARComponent";
-import SaveAsScreenshotButton from "./components/SaveAsScreenshotButton";
 import PdfView from "./components/Pdfviewe";
 import UI from "./ui/Ui";
 
@@ -55,9 +53,9 @@ function App({ injectCanvas}) {
                 {/*<a id="link" rel="ar" href="" download="asset.usdz">*/}
                 {/*    <img id="button" width="100" src="files/arkit.png"/>*/}
                 {/*</a>*/}
-                <Controls handler={setFloorDimensions}/>
 
-                <Slider/>
+
+
                 <UI/>
                 <ARButton/>
                
