@@ -48,6 +48,8 @@ const useDimensionStore = create((set,get) => ({
     setShowPdf:(bool)=>set(state=>({showPdf:bool})),
     addScreenshot:(img)=>set(state=>({screenShots:[...state.screenShots,img]})),
 
+    removeFromScreenshotList:(id)=>set(state=>({screenShots:state.screenShots.filter(item=>item.id !==id)})),
+
 
 
     updateItemDimensions: (item,dim)=>{

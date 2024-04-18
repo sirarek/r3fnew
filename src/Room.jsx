@@ -56,7 +56,7 @@ const Room = ({ floorDimensions }) => {
 
         console.log("adding chair");
 
-        chairs.length < 2 &&
+        chairs.length <5 &&
             addChair({
                 position: e.point.toArray(),
                 id: Math.random(),
@@ -98,6 +98,12 @@ const Room = ({ floorDimensions }) => {
 
     const addScreenshot = useDimensionStore(state => state.addScreenshot)
     const sendScreenshot = () => {
+        const screenshotObject ={
+            id:crypto.randomUUID(),
+            src:""
+
+
+        }
 
         // gl.render(scene, camera);
 
@@ -112,7 +118,9 @@ const Room = ({ floorDimensions }) => {
 
 
         const screenshot = xgl.domElement.toDataURL('image/png');
-        addScreenshot(screenshot)
+        screenshotObject["src"]  =screenshot
+        addScreenshot(screenshotObject)
+
 
         window.postMessage({ screenshotData: screenshot });
     }

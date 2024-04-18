@@ -5,9 +5,10 @@ import {
 import React from "react";
 import DimensionSection from "../components/DimensionsSection";
 import ItemSelector from "../components/itemSelector";
-import ScreenshotsPreview from "../components/screenshotsPreview";
+import ScreenshotsPreview from "../components/ScreenshotsPreview";
 import SaveAsPdf from "../components/SaveAsPdf";
 import SaveAsScreenshotButton from "../components/SaveAsScreenshotButton";
+import SaveProject from "../components/SaveProject";
 
 const UI = props => {
     let drawerWidth = 340;
@@ -24,7 +25,7 @@ const UI = props => {
             variant="permanent"
             anchor="right"
         >
-
+            <SaveProject/>
             <DimensionSection/>
             <Divider/>
             <ItemSelector/>
