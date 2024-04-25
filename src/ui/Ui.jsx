@@ -10,6 +10,7 @@ import SaveAsPdf from "../components/SaveAsPdf";
 import SaveAsScreenshotButton from "../components/SaveAsScreenshotButton";
 import SaveProject from "../components/SaveProject";
 import ProjectSelector from "../components/ProjectSelector";
+import Pdfv2 from "../Pdf/Pdfv2";
 
 const UI = props => {
     let drawerWidth = 340;
@@ -36,6 +37,7 @@ const UI = props => {
             <Divider/>
             <ScreenshotsPreview/>
             <SaveAsPdf/>
+            <Pdfv2/>
         </Drawer>
     )
 }
