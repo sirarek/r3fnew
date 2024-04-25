@@ -50,7 +50,7 @@ const Pdfv2 = props => {
         pdfMake.createPdf(docDefinition).download();
     }
     return (
-        <Button onClick={handlePdfDonwload}> Save As PDF</Button>
+        <Button onClick={handlePdfDonwload}> Save As PDF v2</Button>
     )
 }
 
