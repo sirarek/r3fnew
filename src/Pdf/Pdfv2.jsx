@@ -50,9 +50,8 @@ const Pdfv2 = props => {
         pdfMake.createPdf(docDefinition).download();
     }
     return (
-        <Button onClick={handlePdfDonwload}> Siema</Button>
+        <Button onClick={handlePdfDonwload}> Save As PDF</Button>
     )
-
 }
 
 export default Pdfv2
