@@ -9,6 +9,7 @@ import ScreenshotsPreview from "../components/ScreenshotsPreview";
 import SaveAsPdf from "../components/SaveAsPdf";
 import SaveAsScreenshotButton from "../components/SaveAsScreenshotButton";
 import SaveProject from "../components/SaveProject";
+import ProjectSelector from "../components/ProjectSelector";
 
 const UI = props => {
     let drawerWidth = 340;
@@ -26,6 +27,7 @@ const UI = props => {
             anchor="right"
         >
             <SaveProject/>
+            <ProjectSelector/>
             <DimensionSection/>
             <Divider/>
             <ItemSelector/>
