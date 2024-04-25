@@ -51,6 +51,9 @@ const Room = ({floorDimensions}) => {
             dimensions: {},
         });
     };
+    const returnX = ()=>{
+        return floorX
+    }
     const {scene, gl, camera,} = useThree();
     const threeState = useThree(state => state.get);
     let cam = camera.position.x;
@@ -82,34 +85,53 @@ const Room = ({floorDimensions}) => {
     //   }
     //   // console.log(scene)
     // }, [wallsRestriction, angle,data]);
-
+    console.log(floorX)
     const addScreenshot = useDimensionStore(state => state.addScreenshot)
     const sendScreenshot = () => {
+        const x = threeState();
+        console.log("####debug###")
+
+        console.log(returnX())
+        console.log("####debug###")
         const screenshotObject = {
             id: crypto.randomUUID(),
-            src: ""
+            src: "",
+            w:"",
+            l:""
+
+
 
 
         }
 
         gl.render(scene, camera);
 
-        const x = threeState();
+
         const xgl = x.gl;
         x.setSizeOverride(500, 500, 1);
 
 
+
+
         xgl.render(x.scene, x.camera);
+
+        const {height,width} =scene.children.find(g=>g.name ==="room").children[0]["geometry"]["parameters"]
+
+
 
 
         const screenshot = xgl.domElement.toDataURL('image/png');
-        screenshotObject["src"] = screenshot
+        screenshotObject["src"] = screenshot;
+        screenshotObject["w"] = width;
+        screenshotObject["l"] = height;
+
         addScreenshot(screenshotObject)
         x.setSizeOverride(window.haxyPaxy.w,window.haxyPaxy.h)
 
         window.postMessage({screenshotData: screenshot});
     }
-    useLayoutEffect(
+
+    useEffect(
         () => window.addEventListener("message", (e) => {
             console.log();
             if (e.data === 'create screenshot') {
@@ -119,7 +141,7 @@ const Room = ({floorDimensions}) => {
         })
         , []);
     return (
-        <group
+        <group name={"room"}
             rotation={[-Math.PI / 2, 0, 0]}
             onClick={(e) => {
                 console.log(e);
