@@ -11,6 +11,7 @@ import SaveAsScreenshotButton from "../components/SaveAsScreenshotButton";
 import SaveProject from "../components/SaveProject";
 import ProjectSelector from "../components/ProjectSelector";
 import Pdfv2 from "../Pdf/Pdfv2";
+import ExportScene from "../components/ExportScene";
 
 const UI = props => {
     let drawerWidth = 340;
@@ -36,7 +37,9 @@ const UI = props => {
             <SaveAsScreenshotButton/>
             <Divider/>
             <ScreenshotsPreview/>
+
             <SaveAsPdf/>
+            <ExportScene/>
             <Pdfv2/>
         </Drawer>
     )

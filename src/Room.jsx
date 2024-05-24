@@ -10,6 +10,7 @@ import {
 } from "three";
 
 import {getProject} from "./db/db";
+import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
 // import {useLoaderData} from "react-router-dom";
 
 const Room = ({floorDimensions}) => {
@@ -133,11 +134,42 @@ const Room = ({floorDimensions}) => {
 
     useEffect(
         () => window.addEventListener("message", (e) => {
-            console.log();
+
             if (e.data === 'create screenshot') {
 
                 sendScreenshot();
             }
+            if (e.data === 'export') {
+                const exporter = new  GLTFExporter();
+
+                exporter.parse(scene,function (gltf){
+                    console.log(gltf);
+                        const link = document.createElement( 'a' );
+                        link.style.display = 'none';
+                        document.body.appendChild( link ); // Firefox workaround, see #6594
+
+                        function save( blob, filename ) {
+
+                            link.href = URL.createObjectURL( blob );
+                            link.download = filename;
+                            link.click();
+
+                            // URL.revokeObjectURL( url ); breaks Firefox...
+
+                        }
+                    save(gltf,'scen');
+
+
+                },function ( error ) {
+
+                        console.log( 'An error happened' );
+
+                    },
+                    {})
+
+
+            }
+
         })
         , []);
     return (

@@ -1,11 +1,12 @@
 import {Button} from "@mui/material";
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfFonts from "./fonts";
+import pdfMake from 'pdfmake';
 import useDimensionStore from "../store/store";
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 const Pdfv2 = props => {
     const screenshotList = useDimensionStore(state => state.screenShots);
+    pdfMake.vfs = pdfFonts
 
     const handlePdfDonwload = () => {
         const sampleText = ``
