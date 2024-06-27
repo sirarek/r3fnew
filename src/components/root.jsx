@@ -8,9 +8,10 @@ import Chairss from "../Chairss";
 import CameraControl from "./CameraContro";
 import Lights from "./Lights";
 import Postprocessing from "./Postprocessing";
-import React from "react";
+import React, {Suspense} from "react";
 import {XR} from "@react-three/xr";
 import SaveAsScreenshotButton from "./SaveAsScreenshotButton";
+import { Physics } from '@react-three/rapier';
 
 extend(THREE);
 const so = {
@@ -26,20 +27,25 @@ export function create3DCanvas() {
         if (size.width < 1 || size.height < 1) return null;
         root.configure({size: {width: size.width, height: size.height}, events, camera: {position: [0, 0, 50]}});
         const r3fState = root.render(
-            <XR>
-                <color attach="background" args={["gray"]}/>
-                <Environment preset="apartment"/>
-                <Mline/>
-                <Room/>
-                <Chairss/>
-                {/* <TestBox></TestBox> */}
-                <CameraControl/>
+        <XR>
+            <color attach="background" args={["gray"]}/>
+            <Environment preset="apartment"/>
+            <Mline/>
+            <Suspense>
+            <Physics debug>
+            
+            <Room/>
+            <Chairss/>
+            {/* <TestBox></TestBox> */}
+            <CameraControl/>
 
-                <Lights/>
+            <Lights/>
 
 
-                <Postprocessing/>
-                {/*<ARComponent/>*/}
+            <Postprocessing/>
+            {/*<ARComponent/>*/}
+            </Physics>
+            </Suspense>
             </XR>
         );
         return r3fState;
@@ -52,17 +58,17 @@ export function create3DCanvas() {
 
         wrapper.appendChild(canvas);
         const observer = new ResizeObserver(el => {
-                const {width, height} = el[0]["contentRect"];
-                console.log("zmiany")
-                console.log(el);
-                root.configure({size: {width: width, height: height}});
-                console.log(`window width: ${window.innerWidth} width from observer ${width} height: ${window.innerHeight} height from observer ${height}`)
-                window.haxyPaxy = {w:window.innerWidth,h:window.innerHeight}
-            }
+            const {width, height} = el[0]["contentRect"];
+            console.log("zmiany")
+            console.log(el);
+            root.configure({size: {width: width, height: height}});
+            console.log(`window width: ${window.innerWidth} width from observer ${width} height: ${window.innerHeight} height from observer ${height}`)
+            window.haxyPaxy = {w:window.innerWidth,h:window.innerHeight}
+        }
         );
 
         root.configure({size: {width: wrapper.clientWidth, height: wrapper.clientHeight}})
-//here
+        //here
         observer.observe(wrapper);
     };
 

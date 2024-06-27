@@ -25,9 +25,10 @@ const Chair = (props) => {
     const floorY = useDimensionStore((state) => state.floorY);
     const clickedChair = useDimensionStore((state) => state.clickedChair);
     const [focus, setFocus] = useState(false)
+    const [pos,setPos] =useState("");
     // const camHandler = useDimensionStore(
-    //   (state) => state.setCameraControlsAcitve
-    // );
+        //   (state) => state.setCameraControlsAcitve
+        // );
 
     const updateItemDimensions = useDimensionStore(state => state.updateItemDimensions)
     const bbox = new Box3();
@@ -96,7 +97,7 @@ const Chair = (props) => {
 
     const matrix = useRef(mtrx);
     const isChairActive = props.id === clickedChair;
-
+    let x;
     useLayoutEffect(() => {
 
 
@@ -116,66 +117,68 @@ const Chair = (props) => {
         matrix.current.copy(m);
 
     }, [d])
-    useHelper(chairRef, BoxHelper, "red")
+    // useHelper(chairRef, BoxHelper, "red")
 
 
     return (
         <PivotControls
-            fixed={true}
-            anchor={[0, 0, 0]}
-            ref={ref}
-            matrix={matrix.current}
-            activeAxes={[isChairActive, false, isChairActive]}
-            // autoTransform={props.id === clickedChair}
-            visible={props.id === clickedChair}
-            scale={100}
-            onDrag={(m, dl, w, dw) => {
-                // camHandler(false)
-                // current.set(m.elements[12], 0, m.elements[14]);
-                // const x = _tmp.set(m.elements[12], 0, m.elements[14]).clamp(min, max);
-                // m.setPosition(x);
-                // ref.current.matrix.copy(m);
+        fixed={true}
+        anchor={[0, 0, 0]}
+        ref={ref}
+        matrix={matrix.current}
+        activeAxes={[isChairActive, false, isChairActive]}
+        // autoTransform={props.id === clickedChair}
+        visible={props.id === clickedChair}
+        scale={100}
+        onDrag={(m, dl, w, dw) => {
+            // camHandler(false)
+            // current.set(m.elements[12], 0, m.elements[14]);
+            // const x = _tmp.set(m.elements[12], 0, m.elements[14]).clamp(min, max);
+            // m.setPosition(x);
+            // ref.current.matrix.copy(m);
 
-                if (!matrix.current) return;
-                bbox.setFromObject(chairRef.current)
-                bbox.getSize(bnd.current);
-                bnd.current.multiplyScalar(0.5).negate().setY(0);
-                bbox1.copy(d).expandByVector(bnd.current);
+            if (!matrix.current) return;
+            bbox.setFromObject(chairRef.current)
+            bbox.getSize(bnd.current);
+            bnd.current.multiplyScalar(0.5).negate().setY(0);
+            bbox1.copy(d).expandByVector(bnd.current);
 
-                const newPos = _tmp.set(m.elements[12], 0, m.elements[14]).clamp(bbox1.min, bbox1.max);
-                m.setPosition(newPos);
-                matrix.current.copy(m);
-                // curMtrx = m.elements;
-                // console.log(curMtrx);
-            }}
-            // onDragStart={camHandler(false)}
-
+            const newPos = _tmp.set(m.elements[12], 0, m.elements[14]).clamp(bbox1.min, bbox1.max);
+            m.setPosition(newPos);
+            x = newPos
+            matrix.current.copy(m);
+            setPos(x)
+            // curMtrx = m.elements;
+            // console.log(curMtrx);
+        }}
+        // onDragStart={camHandler(false)}
+        
         >
-            <group ref={chairRef}>
-                <Center disableY>
-                    {isChairActive && (
-                        // <Html position={[0, 2, 0]} className="text-id">
-                        // {/*TODO: styling size change*/}
-                        // <label htmlFor={props.id}>width
-                        // <input className="width-input"id={props.id} type={"number"} max={5} onFocus={()=>{setFocus(true)}} onBlur={isActiveHandler}  onChange={changeWidthHandler} />
-                        // </label>
-                        // {/*{props.id.toString().slice(0, 4)}*/}
-                        // </Html>
-                        <FurnitureProperties id={props.id} changeWidthHandler={changeWidthHandler}
-                                            data={itemRef.current.children[0]}/>
-                    )}
-                    {
-                        props.type == "chair" ?
-                            <ChairModel ref={itemRef} onClick={chairOnClick} id={props.id}/>
-                            : props.type == "cabinet_morph" ?
-                                <CabinetMorphModel ref={itemRef} onClick={chairOnClick}
-                                                   id={props.id}/> : props.type == "prisoner" ?
-                                    <PrisonerModel ref={itemRef} onClick={chairOnClick} id={props.id}/> :
-                                    <CabinetModel ref={itemRef} onClick={chairOnClick} id={props.id}/>
+        <group ref={chairRef}>
+        <Center disableY>
+        {isChairActive && (
+            // <Html position={[0, 2, 0]} className="text-id">
+            // {/*TODO: styling size change*/}
+            // <label htmlFor={props.id}>width
+            // <input className="width-input"id={props.id} type={"number"} max={5} onFocus={()=>{setFocus(true)}} onBlur={isActiveHandler}  onChange={changeWidthHandler} />
+            // </label>
+            // {/*{props.id.toString().slice(0, 4)}*/}
+            // </Html>
+            <FurnitureProperties id={props.id} changeWidthHandler={changeWidthHandler}
+            data={itemRef.current.children[0]}/>
+        )}
+        {
+            props.type == "chair" ?
+                <ChairModel ref={itemRef} onClick={chairOnClick} id={props.id} position={pos}/>
+                : props.type == "cabinet_morph" ?
+                <CabinetMorphModel ref={itemRef} onClick={chairOnClick}
+            id={props.id}/> : props.type == "prisoner" ?
+                <PrisonerModel ref={itemRef} onClick={chairOnClick} id={props.id}/> :
+                <CabinetModel ref={itemRef} onClick={chairOnClick} id={props.id}/>
 
-                    }
+        }
 
-                </Center></group>
+        </Center></group>
         </PivotControls>
     );
 };

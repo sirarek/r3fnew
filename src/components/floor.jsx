@@ -3,6 +3,7 @@ import {  useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three/src/loaders/TextureLoader'
 // import { useSnapshot,proxy } from "valtio";
 import useDimensionStore from "../store/store";
+import {RigidBody} from "@react-three/rapier";
 
 
 
@@ -25,6 +26,7 @@ const Floor = (props) => {
   //   floorMap.wrapS = RepeatWrapping;
   //   floorMap.wrapT = RepeatWrapping;
     return (
+      <RigidBody type="fixed">
     <mesh onPointerDown={props.handler}  receiveShadow={true}>
       <planeGeometry args={[floorX, floorY]}  />
 
@@ -33,6 +35,7 @@ const Floor = (props) => {
           roughness={0.1}
       />
     </mesh>
+      </RigidBody>
   );
 };
 export default Floor;

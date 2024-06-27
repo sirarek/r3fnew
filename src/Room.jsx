@@ -11,6 +11,7 @@ import {
 
 import {getProject} from "./db/db";
 import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
+import {type} from "@testing-library/user-event/dist/type";
 // import {useLoaderData} from "react-router-dom";
 
 const Room = ({floorDimensions}) => {
@@ -157,7 +158,7 @@ const Room = ({floorDimensions}) => {
                             // URL.revokeObjectURL( url ); breaks Firefox...
 
                         }
-                    save(gltf,'scen');
+                    save(new Blob([gltf],{type:"application/octet-stream"}),'scen.glb');
 
 
                 },function ( error ) {
@@ -165,7 +166,7 @@ const Room = ({floorDimensions}) => {
                         console.log( 'An error happened' );
 
                     },
-                    {})
+                    {binary:true})
 
 
             }
