@@ -11,18 +11,18 @@ const ChairModel =  React.forwardRef((props,ref) => {
   const scene = useMemo(() => gltf.scene.clone(true), []);
   const rBody = useRef();
   useEffect(()=>{
-     })
+  })
   return (
-    <RigidBody ref={rBody} position={props.position} gravityScale={1} colliders="hull">
+    <RigidBody ref={rBody} position={props.position} gravityScale={5} colliders="hull">
     <primitive
 
-      ref = {ref}
-      object={scene}
-      scale={1}
-      position={props.position}
-      matrix={props.matrix}
-      onClick={onClickHandler}
-      userData={{ id: props.id }}
+    ref = {ref}
+    object={scene}
+    scale={1}
+    position={props.position}
+    matrix={props.matrix}
+    onClick={onClickHandler}
+    userData={{ id: props.id }}
     />
     </RigidBody>
   );
