@@ -10,10 +10,16 @@ const ChairModel =  React.forwardRef((props,ref) => {
   const gltf = useLoader(GLTFLoader, "/chair.glb");
   const scene = useMemo(() => gltf.scene.clone(true), []);
   const rBody = useRef();
+  console.log("afterrrrrrrr")
+  console.log(props.position)
+  console.log("afterrrrrrrr")
   useEffect(()=>{
+    console.log("###")
+    console.log(props.position)
+
+    console.log("###")
   })
   return (
-    <RigidBody ref={rBody} position={props.position} gravityScale={5} colliders="hull">
     <primitive
 
     ref = {ref}
@@ -24,7 +30,6 @@ const ChairModel =  React.forwardRef((props,ref) => {
     onClick={onClickHandler}
     userData={{ id: props.id }}
     />
-    </RigidBody>
   );
 });
 
