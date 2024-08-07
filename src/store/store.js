@@ -13,6 +13,7 @@ const useDimensionStore = create((set,get) => ({
     P:true,
     selectedFurniture: "chair",
     screenShots:[],
+    coliders : new Set(),
     selectFurniture: ((item)=>{set(state=>({selectedFurniture:item}))}),
 
     roomsize :(state)=>{get({width:state.floorX, height:state.wallsHeight,depth:state.floorY})},
@@ -21,11 +22,20 @@ const useDimensionStore = create((set,get) => ({
     updateChairs:(updatedChair,msh)=>set(state=>({chairs:state.chairs.map(chair=>chair.id === updatedChair.id ? updatedChair : chair)}) ),
     clickChair: (id)=>set(state=>({clickedChair:id})),
     addChair:(chair)=>set(state=>({chairs:[...state.chairs,chair]})),
+    addColider: (item) => set((state) => ({ colliders:state.coliders.add(item) })),
+    removeColider:(item)=> set((state)=> {
+        const newColiders = new Set(state.coliders);
+        newColiders.delete(item);
+        return {coliders:newColiders}
+        }),
+
+    addCollider:(chair)=>set(state=>({chairs:[...state.chairs,chair]})),
     changeWallsHeight:(height)=>set(state=>({wallsHeight:height})),
     changeX:(x)=>set(state=>({floorX:x})),
     changeY:(y)=>set(state=>({floorY:y})),
     changeThickness:(thickness)=>set(state=>({thickness:thickness})),
     setWallRestriction:(bool)=>set(state=>({wallsResrticrion:bool})),
+
     getActiveChair:()=>{
         const activeId = get().clickedChair;
         const chrs  = get().chairs;
@@ -57,8 +67,8 @@ const useDimensionStore = create((set,get) => ({
         const itemIndex = chrs.findIndex(el=>el.id==item);
         const itemToUpdet = chrs[itemIndex];
         itemToUpdet.dimensions = {...itemToUpdet.dimensions,...dim}
-        
+
         console.log("item to update: ",itemToUpdet)
         console.log("item dimType: ",dim)
-}}));
+    }}));
 export default useDimensionStore;

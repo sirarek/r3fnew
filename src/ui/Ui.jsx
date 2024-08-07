@@ -12,6 +12,7 @@ import SaveProject from "../components/SaveProject";
 import ProjectSelector from "../components/ProjectSelector";
 import Pdfv2 from "../Pdf/Pdfv2";
 import ExportScene from "../components/ExportScene";
+import DebugButton from "./debug";
 
 const UI = props => {
     let drawerWidth = 340;
@@ -41,6 +42,7 @@ const UI = props => {
             <SaveAsPdf/>
             <ExportScene/>
             <Pdfv2/>
+        <DebugButton></DebugButton>
         </Drawer>
     )
 }

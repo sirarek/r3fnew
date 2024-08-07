@@ -8,7 +8,7 @@ import {
     Plane,
     PlaneHelper,
 } from "three";
-
+import Collider from "./components/Coliders";
 import {getProject} from "./db/db";
 import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
 import {type} from "@testing-library/user-event/dist/type";
@@ -181,12 +181,12 @@ const Room = ({floorDimensions}) => {
         >
         {/* <group rotation={[-Math.PI / 2, 0, -Math.PI / 4]}> */}
         <Floor data={floorDimensions} handler={addConeHandler}/>
+        <Collider>
         <mesh position={[0,0,0.5]}>
-
         <boxGeometry args={[1,1,1]}/>
-     
         </mesh>
 
+        </Collider>
         <Wall
         window={true}
         // handler={addConeHandler}

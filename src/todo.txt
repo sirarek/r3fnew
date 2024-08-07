@@ -1,4 +1,4 @@
-[] add box on the middle
+[x] add box on the middle
 [] set box as collider
 [] make a item colide with box
 
