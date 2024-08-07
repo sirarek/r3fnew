@@ -12,6 +12,7 @@ import Collider from "./components/Coliders";
 import {getProject} from "./db/db";
 import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
 import {type} from "@testing-library/user-event/dist/type";
+import Movable from "./components/Movable";
 // import {useLoaderData} from "react-router-dom";
 
 const Room = ({floorDimensions}) => {
@@ -181,6 +182,13 @@ const Room = ({floorDimensions}) => {
         >
         {/* <group rotation={[-Math.PI / 2, 0, -Math.PI / 4]}> */}
         <Floor data={floorDimensions} handler={addConeHandler}/>
+            <Movable>
+           <mesh castShadow receiveShadow position={[2, 1, 0.5]}>
+          <boxGeometry />
+          <meshStandardMaterial color="orange" />
+        </mesh>
+        
+            </Movable>
         <Collider>
         <mesh position={[0,0,0.5]}>
         <boxGeometry args={[1,1,1]}/>
