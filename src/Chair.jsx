@@ -75,7 +75,6 @@ function Movable({ children, ...props }) {
     );
 }
 
-
 const Chair = (props) => {
     const setClickedChair = useDimensionStore((state) => state.clickChair);
     const ref = useRef();
