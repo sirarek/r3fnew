@@ -264,6 +264,7 @@ import CabinetModel from "./components/CabinetModel";
 import CabinetMorphModel from "./components/CabinetMoph";
 import FurnitureProperties from "./components/FurnitureProperties";
 import PrisonerModel from "./components/prisoner";
+import Movable from "./components/Movable";
 
 
 const Chair = (props) => {
@@ -370,37 +371,37 @@ const Chair = (props) => {
 
 
     return (
-        <PivotControls
-            fixed={true}
-            anchor={[0, 0, 0]}
-            ref={ref}
-            matrix={matrix.current}
-            activeAxes={[isChairActive, false, isChairActive]}
-            // autoTransform={props.id === clickedChair}
-            visible={props.id === clickedChair}
-            scale={100}
-            onDrag={(m, dl, w, dw) => {
-                // camHandler(false)
-                // current.set(m.elements[12], 0, m.elements[14]);
-                // const x = _tmp.set(m.elements[12], 0, m.elements[14]).clamp(min, max);
-                // m.setPosition(x);
-                // ref.current.matrix.copy(m);
+        // <PivotControls
+        //     fixed={true}
+        //     anchor={[0, 0, 0]}
+        //     ref={ref}
+        //     matrix={matrix.current}
+        //     activeAxes={[isChairActive, false, isChairActive]}
+        //     // autoTransform={props.id === clickedChair}
+        //     visible={props.id === clickedChair}
+        //     scale={100}
+        //     onDrag={(m, dl, w, dw) => {
+        //         // camHandler(false)
+        //         // current.set(m.elements[12], 0, m.elements[14]);
+        //         // const x = _tmp.set(m.elements[12], 0, m.elements[14]).clamp(min, max);
+        //         // m.setPosition(x);
+        //         // ref.current.matrix.copy(m);
 
-                if (!matrix.current) return;
-                bbox.setFromObject(chairRef.current)
-                bbox.getSize(bnd.current);
-                bnd.current.multiplyScalar(0.5).negate().setY(0);
-                bbox1.copy(d).expandByVector(bnd.current);
+        //         if (!matrix.current) return;
+        //         bbox.setFromObject(chairRef.current)
+        //         bbox.getSize(bnd.current);
+        //         bnd.current.multiplyScalar(0.5).negate().setY(0);
+        //         bbox1.copy(d).expandByVector(bnd.current);
 
-                const newPos = _tmp.set(m.elements[12], 0, m.elements[14]).clamp(bbox1.min, bbox1.max);
-                m.setPosition(newPos);
-                matrix.current.copy(m);
-                // curMtrx = m.elements;
-                // console.log(curMtrx);
-            }}
-            // onDragStart={camHandler(false)}
+        //         const newPos = _tmp.set(m.elements[12], 0, m.elements[14]).clamp(bbox1.min, bbox1.max);
+        //         m.setPosition(newPos);
+        //         matrix.current.copy(m);
+        //         // curMtrx = m.elements;
+        //         // console.log(curMtrx);
+        //     }}
+        //     // onDragStart={camHandler(false)}
 
-        >
+        // >
             <group ref={chairRef}>
                 <Center disableY>
                     {isChairActive && (
@@ -416,7 +417,10 @@ const Chair = (props) => {
                     )}
                     {
                         props.type == "chair" ?
+                            <Movable>
+
                             <ChairModel ref={itemRef} onClick={chairOnClick} id={props.id}/>
+                            </Movable>
                             : props.type == "cabinet_morph" ?
                                 <CabinetMorphModel ref={itemRef} onClick={chairOnClick}
                                                    id={props.id}/> : props.type == "prisoner" ?
@@ -426,7 +430,7 @@ const Chair = (props) => {
                     }
 
                 </Center></group>
-        </PivotControls>
+        // </PivotControls>
     );
 };
 

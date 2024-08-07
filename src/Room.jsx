@@ -182,15 +182,15 @@ const Room = ({floorDimensions}) => {
         >
         {/* <group rotation={[-Math.PI / 2, 0, -Math.PI / 4]}> */}
         <Floor data={floorDimensions} handler={addConeHandler}/>
-            <Movable>
+        {/* <Movable>
            <mesh castShadow receiveShadow position={[2, 1, 0.5]}>
           <boxGeometry />
           <meshStandardMaterial color="orange" />
         </mesh>
         
-            </Movable>
+            </Movable>*/}
         <Collider>
-        <mesh position={[0,0,0.5]}>
+        <mesh position={[1,0,0.5]}>
         <boxGeometry args={[1,1,1]}/>
         </mesh>
 

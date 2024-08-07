@@ -51,7 +51,7 @@ export default function Movable({children,...props}){
 		scale={1.75}
 
 		disableRotations={false}
-		activeAxes={[true,true,false]}
+		activeAxes={[true,false,true]}
 		depthTest={false}
 		onDrag={onDrag}
 		>
