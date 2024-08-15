@@ -11,9 +11,7 @@ import {
 import Collider from "./components/Coliders";
 import {getProject} from "./db/db";
 import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
-import {type} from "@testing-library/user-event/dist/type";
 import Movable from "./components/Movable";
-// import {useLoaderData} from "react-router-dom";
 
 const Room = ({floorDimensions}) => {
     const wallsHeight = useDimensionStore((state) => state.wallsHeight);
@@ -65,7 +63,6 @@ const Room = ({floorDimensions}) => {
     const wall4 = useRef();
 
     useFrame((_) => {
-        // console.log()
         wall1.current.visible = camera.position.x > wall1.current.position.x;
         wall2.current.visible = camera.position.x < wall2.current.position.x;
         wall3.current.visible = camera.position.z < -wall3.current.position.y;
@@ -77,7 +74,6 @@ const Room = ({floorDimensions}) => {
 
             //           setFromdb(JSON.parse(data.data))
             //     }
-        // console.log(angle);
         if (!wallsRestriction) {
             scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
         } else {
@@ -85,7 +81,6 @@ const Room = ({floorDimensions}) => {
 
 
         }
-        // console.log(scene)
     }, [wallsRestriction, angle]);
     console.log(floorX)
     const addScreenshot = useDimensionStore(state => state.addScreenshot)
@@ -100,33 +95,20 @@ const Room = ({floorDimensions}) => {
             src: "",
             w:"",
             l:""
-
-
-
-
         }
-
         gl.render(scene, camera);
-
-
         const xgl = x.gl;
         x.setSizeOverride(500, 500, 1);
-
-
-
-
         xgl.render(x.scene, x.camera);
 
-        const {height,width} =scene.children.find(g=>g.name ==="room").children[0]["geometry"]["parameters"]
-
-
-
-
+        console.log(scene)
+        //TODO: fix the geometry source
+        
+        const {height,width} =scene.children.find(g=>g.name ==="room").children[0].children[0]["geometry"]["parameters"]
         const screenshot = xgl.domElement.toDataURL('image/png');
         screenshotObject["src"] = screenshot;
         screenshotObject["w"] = width;
         screenshotObject["l"] = height;
-
         addScreenshot(screenshotObject)
         x.setSizeOverride(window.haxyPaxy.w,window.haxyPaxy.h)
 
@@ -175,15 +157,49 @@ const Room = ({floorDimensions}) => {
         , []);
     return (
         <group name={"room"}
-        // rotation={[-Math.PI / 2, 0, 0]}
         onClick={(e) => {
             console.log(e);
         }}
         >
-        {/* <group rotation={[-Math.PI / 2, 0, -Math.PI / 4]}> */}
-        <Floor data={floorDimensions} handler={addConeHandler}/>
-         <Movable>
-            <mesh castShadow receiveShadow position={[2,0.5 , 1]}>
+        <Floor name="floor" data={floorDimensions} handler={addConeHandler}/>
+                <Wall
+        window={true}
+        key={1}
+        ref={wall1}
+        geometry={[wallsHeight, floorY + thickness * 2, thickness]}
+        position={[-floorX / 2 - 0.5*thickness,wallsHeight/2,0]}
+        rotation={[Math.PI/2, -Math.PI/2, 0]}
+        plane={plane}
+        />
+        <Wall
+        window={true}
+        plane={plane}
+        ref={wall2}
+        key={2}
+        geometry={[wallsHeight, floorY + thickness * 2, thickness]}
+        position={[floorX / 2 +thickness/2,wallsHeight/2,0]}
+        rotation={[Math.PI/2, Math.PI/2, 0]}
+        ax={"x"}
+        />
+
+        <Wall
+        plane={plane}
+        ref={wall3}
+        key={3}
+        geometry={[floorX + thickness * 2, wallsHeight, thickness]} 
+        position={[0,wallsHeight/2,floorX/2 + 0.5*thickness ]} 
+        rotation={[0,  0 , 0]} />
+        <Wall
+        plane={plane}
+        ref={wall4}
+        key={4}
+        geometry={[floorX + thickness * 2, wallsHeight, thickness]}
+        position={[0,wallsHeight/2,-floorY/2 -0.5*thickness]}
+        rotation={[0,0, 0]}
+        ax={"y"}
+        />
+        <Movable>
+            <mesh name={"test"}castShadow receiveShadow position={[2,0.5 , 1]}>
             <boxGeometry />
             <meshStandardMaterial color="orange" />
             </mesh>
@@ -195,48 +211,7 @@ const Room = ({floorDimensions}) => {
         </mesh>
 
         </Collider>
-        <Wall
-        window={true}
-        // handler={addConeHandler}
-        key={1}
-        ref={wall1}
-        geometry={[wallsHeight, floorY + thickness * 2, thickness]}
-        // position={[-floorX / 2 - thickness / 2, 0, wallsHeight / 2]}
-        position={[-floorX / 2 - 0.5*thickness,wallsHeight/2,0]}
-        rotation={[Math.PI/2, -Math.PI/2, 0]}
 
-        plane={plane}
-        />
-        <Wall
-        window={true}
-        plane={plane}
-        ref={wall2}
-        // handler={addConeHandler}
-        key={2}
-        geometry={[wallsHeight, floorY + thickness * 2, thickness]}
-        position={[floorX / 2 +thickness/2,wallsHeight/2,0]}
-        rotation={[Math.PI/2, Math.PI/2, 0]}
-        ax={"x"}
-        />
-
-        <Wall
-        plane={plane}
-        ref={wall3}
-        // handler={addConeHandler}
-        key={3}
-        geometry={[floorX + thickness * 2, wallsHeight, thickness]} 
-        position={[0,wallsHeight/2,floorX/2 + 0.5*thickness ]} 
-        rotation={[0,  0 , 0]} />
-        <Wall
-        plane={plane}
-        ref={wall4}
-        // handler={addConeHandler}
-        key={4}
-        geometry={[floorX + thickness * 2, wallsHeight, thickness]}
-        position={[0,wallsHeight/2,-floorY/2 -0.5*thickness]}
-        rotation={[0,0, 0]}
-        ax={"y"}
-        ></Wall>
         </group>
     );
 };
