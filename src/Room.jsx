@@ -64,29 +64,29 @@ const Room = ({floorDimensions}) => {
     const wall3 = useRef();
     const wall4 = useRef();
 
-     useFrame((_) => {
-           // console.log()
-           wall1.current.visible = camera.position.x > wall1.current.position.x;
-           wall2.current.visible = camera.position.x < wall2.current.position.x;
-           wall3.current.visible = camera.position.z < -wall3.current.position.y;
-           wall4.current.visible = camera.position.z > -wall4.current.position.y;
-         });
-     useEffect(() => {
-           // if (data){
-           //       console.log(data)
-            
-           //           setFromdb(JSON.parse(data.data))
-           //     }
-           // console.log(angle);
-           if (!wallsRestriction) {
-                 scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
-               } else {
-                     scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
-                
-                         
-                   }
-           // console.log(scene)
-         }, [wallsRestriction, angle]);
+    useFrame((_) => {
+        // console.log()
+        wall1.current.visible = camera.position.x > wall1.current.position.x;
+        wall2.current.visible = camera.position.x < wall2.current.position.x;
+        wall3.current.visible = camera.position.z < -wall3.current.position.y;
+        wall4.current.visible = camera.position.z > -wall4.current.position.y;
+    });
+    useEffect(() => {
+        // if (data){
+            //       console.log(data)
+
+            //           setFromdb(JSON.parse(data.data))
+            //     }
+        // console.log(angle);
+        if (!wallsRestriction) {
+            scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
+        } else {
+            scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
+
+
+        }
+        // console.log(scene)
+    }, [wallsRestriction, angle]);
     console.log(floorX)
     const addScreenshot = useDimensionStore(state => state.addScreenshot)
     const sendScreenshot = () => {
@@ -182,15 +182,15 @@ const Room = ({floorDimensions}) => {
         >
         {/* <group rotation={[-Math.PI / 2, 0, -Math.PI / 4]}> */}
         <Floor data={floorDimensions} handler={addConeHandler}/>
-        {/* <Movable>
-           <mesh castShadow receiveShadow position={[2, 1, 0.5]}>
-          <boxGeometry />
-          <meshStandardMaterial color="orange" />
-        </mesh>
-        
-            </Movable>*/}
+         <Movable>
+            <mesh castShadow receiveShadow position={[2,0.5 , 1]}>
+            <boxGeometry />
+            <meshStandardMaterial color="orange" />
+            </mesh>
+
+            </Movable>
         <Collider>
-        <mesh position={[1,0,0.5]}>
+        <mesh position={[0,0.5,0]}>
         <boxGeometry args={[1,1,1]}/>
         </mesh>
 
@@ -202,8 +202,9 @@ const Room = ({floorDimensions}) => {
         ref={wall1}
         geometry={[wallsHeight, floorY + thickness * 2, thickness]}
         // position={[-floorX / 2 - thickness / 2, 0, wallsHeight / 2]}
-        position={[-floorX / 2,wallsHeight/2,0]}
+        position={[-floorX / 2 - 0.5*thickness,wallsHeight/2,0]}
         rotation={[Math.PI/2, -Math.PI/2, 0]}
+
         plane={plane}
         />
         <Wall
@@ -213,7 +214,7 @@ const Room = ({floorDimensions}) => {
         // handler={addConeHandler}
         key={2}
         geometry={[wallsHeight, floorY + thickness * 2, thickness]}
-        position={[floorX / 2,wallsHeight/2,0]}
+        position={[floorX / 2 +thickness/2,wallsHeight/2,0]}
         rotation={[Math.PI/2, Math.PI/2, 0]}
         ax={"x"}
         />
@@ -223,17 +224,16 @@ const Room = ({floorDimensions}) => {
         ref={wall3}
         // handler={addConeHandler}
         key={3}
-        geometry={[floorX + thickness * 2, wallsHeight, thickness]}
-        position={[0,wallsHeight/2,floorX/2]}
-        rotation={[0,  0 , 0]}
-        />
+        geometry={[floorX + thickness * 2, wallsHeight, thickness]} 
+        position={[0,wallsHeight/2,floorX/2 + 0.5*thickness ]} 
+        rotation={[0,  0 , 0]} />
         <Wall
         plane={plane}
         ref={wall4}
         // handler={addConeHandler}
         key={4}
         geometry={[floorX + thickness * 2, wallsHeight, thickness]}
-        position={[0,wallsHeight/2,-floorY/2]}
+        position={[0,wallsHeight/2,-floorY/2 -0.5*thickness]}
         rotation={[0,0, 0]}
         ax={"y"}
         ></Wall>
@@ -243,7 +243,7 @@ const Room = ({floorDimensions}) => {
 export default Room;
 
 export async function loader({params}) {
- 
+
     const result = await getProject(params.projId);
 
     if (result) {
