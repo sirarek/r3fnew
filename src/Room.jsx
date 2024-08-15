@@ -175,7 +175,7 @@ const Room = ({floorDimensions}) => {
         , []);
     return (
         <group name={"room"}
-        rotation={[-Math.PI / 2, 0, 0]}
+        // rotation={[-Math.PI / 2, 0, 0]}
         onClick={(e) => {
             console.log(e);
         }}
@@ -201,8 +201,9 @@ const Room = ({floorDimensions}) => {
         key={1}
         ref={wall1}
         geometry={[wallsHeight, floorY + thickness * 2, thickness]}
-        position={[-floorX / 2 - thickness / 2, 0, wallsHeight / 2]}
-        rotation={[0, Math.PI / 2, 0]}
+        // position={[-floorX / 2 - thickness / 2, 0, wallsHeight / 2]}
+        position={[-floorX / 2,wallsHeight/2,0]}
+        rotation={[Math.PI/2, -Math.PI/2, 0]}
         plane={plane}
         />
         <Wall
@@ -212,8 +213,8 @@ const Room = ({floorDimensions}) => {
         // handler={addConeHandler}
         key={2}
         geometry={[wallsHeight, floorY + thickness * 2, thickness]}
-        position={[floorX / 2 + thickness / 2, 0, wallsHeight / 2]}
-        rotation={[0, -Math.PI / 2, 0]}
+        position={[floorX / 2,wallsHeight/2,0]}
+        rotation={[Math.PI/2, Math.PI/2, 0]}
         ax={"x"}
         />
 
@@ -223,8 +224,8 @@ const Room = ({floorDimensions}) => {
         // handler={addConeHandler}
         key={3}
         geometry={[floorX + thickness * 2, wallsHeight, thickness]}
-        position={[0, -floorY / 2 - thickness / 2, wallsHeight / 2]}
-        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0,wallsHeight/2,floorX/2]}
+        rotation={[0,  0 , 0]}
         />
         <Wall
         plane={plane}
@@ -232,8 +233,8 @@ const Room = ({floorDimensions}) => {
         // handler={addConeHandler}
         key={4}
         geometry={[floorX + thickness * 2, wallsHeight, thickness]}
-        position={[0, floorY / 2 + thickness / 2, wallsHeight / 2]}
-        rotation={[Math.PI / 2, 0, 0]}
+        position={[0,wallsHeight/2,-floorY/2]}
+        rotation={[0,0, 0]}
         ax={"y"}
         ></Wall>
         </group>
@@ -242,7 +243,7 @@ const Room = ({floorDimensions}) => {
 export default Room;
 
 export async function loader({params}) {
-
+ 
     const result = await getProject(params.projId);
 
     if (result) {

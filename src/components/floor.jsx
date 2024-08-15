@@ -27,8 +27,8 @@ const Floor = (props) => {
   //   floorMap.wrapT = RepeatWrapping;
     return (
       <RigidBody type="fixed">
-    <mesh onPointerDown={props.handler}  receiveShadow={true}>
-      <planeGeometry args={[floorX, floorY]}  />
+    <mesh onPointerDown={props.handler}  rotation={[-Math.PI / 2, 0, 0]} receiveShadow={true}>
+      <planeGeometry args={[floorX, floorY]} />
 
       <meshStandardMaterial
           // map={floorMap}

@@ -18,7 +18,7 @@ export default function Movable({children,...props}){
 	const onDrag = m=>{
 		m.decompose(nextPos,nextQuat,nextScale);
 		matrix.current.copy(m);
-		obj.current.updateWorldMatrix(true);
+		obj.current.updateWorldMatrix(true,true);
 		objBbox.setFromObject(obj.current);
 
 		let colisionDetected = false;
