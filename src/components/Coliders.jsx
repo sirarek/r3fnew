@@ -15,7 +15,7 @@ export default  function Collider({ children, type = "aabb"}) {
 		// return () => removeColider(collider);
 	}, []);
 
-	useHelper(colliderGroup, BoxHelper, "cyan");
+	// useHelper(colliderGroup, BoxHelper, "cyan");
 
 	return <group ref={colliderGroup}>{children}</group>;
 }

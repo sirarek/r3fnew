@@ -2,7 +2,7 @@ import {
     Divider,
     Drawer
 } from "@mui/material";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import DimensionSection from "../components/DimensionsSection";
 import ItemSelector from "../components/itemSelector";
 import ScreenshotsPreview from "../components/ScreenshotsPreview";
@@ -13,9 +13,19 @@ import ProjectSelector from "../components/ProjectSelector";
 import Pdfv2 from "../Pdf/Pdfv2";
 import ExportScene from "../components/ExportScene";
 import DebugButton from "./debug";
-
 const UI = props => {
-    let drawerWidth = 340;
+    let drawerWidth = 340; 
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const handleResize = ()=>
+        setWindowWidth(window.innerWidth);  
+    console.log(windowWidth)
+
+    useEffect(()=>{
+        window.addEventListener('resize', handleResize);
+        return ()=>{
+            window.removeEventListener('resize', handleResize)
+        }
+    })
     return (
         <Drawer
             sx={{
@@ -26,9 +36,11 @@ const UI = props => {
                     boxSizing: 'border-box',
                 },
             }}
-            variant="permanent"
+            variant="persistent"
             anchor="right"
+        open={windowWidth > 1028}
         >
+    
             <SaveProject/>
             <ProjectSelector/>
             <DimensionSection/>

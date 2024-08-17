@@ -12,6 +12,7 @@ import React, {Suspense} from "react";
 import {XR} from "@react-three/xr";
 import SaveAsScreenshotButton from "./SaveAsScreenshotButton";
 import { Physics } from '@react-three/rapier';
+import MessageHandler from '../utils/helper';
 
 extend(THREE);
 const so = {
@@ -40,7 +41,7 @@ export function create3DCanvas() {
             <CameraControl/>
 
             <Lights/>
-
+            <MessageHandler/>
 
             <Postprocessing/>
             {/*<ARComponent/>*/}

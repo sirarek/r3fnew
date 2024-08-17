@@ -2,6 +2,7 @@ import React, {useRef, useState, useContext, useEffect, useMemo, useLayoutEffect
 import {VRButton, ARButton, XR, Controllers, Hands} from '@react-three/xr'
 import PdfView from "./components/Pdfviewe";
 import UI from "./ui/Ui";
+import MessageHandler from "./utils/helper";
 
 function App({injectCanvas}) {
     return (

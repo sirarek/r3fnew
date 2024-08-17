@@ -12,6 +12,7 @@ import Collider from "./components/Coliders";
 import {getProject} from "./db/db";
 import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
 import Movable from "./components/Movable";
+import { handleMessageExport, sendScreenshot } from "./utils/helpers";
 
 const Room = ({floorDimensions}) => {
     const wallsHeight = useDimensionStore((state) => state.wallsHeight);
@@ -51,12 +52,7 @@ const Room = ({floorDimensions}) => {
                 dimensions: {},
             });
     };
-    const returnX = ()=>{
-        return floorX
-    }
-    const {scene, gl, camera,} = useThree();
-    const threeState = useThree(state => state.get);
-    let cam = camera.position.x;
+    const {scene,camera,} = useThree();
     const wall1 = useRef();
     const wall2 = useRef();
     const wall3 = useRef();
@@ -82,79 +78,6 @@ const Room = ({floorDimensions}) => {
 
         }
     }, [wallsRestriction, angle]);
-    console.log(floorX)
-    const addScreenshot = useDimensionStore(state => state.addScreenshot)
-    const sendScreenshot = () => {
-        const x = threeState();
-        console.log("####debug###")
-
-        console.log(returnX())
-        console.log("####debug###")
-        const screenshotObject = {
-            id: crypto.randomUUID(),
-            src: "",
-            w:"",
-            l:""
-        }
-        gl.render(scene, camera);
-        const xgl = x.gl;
-        x.setSizeOverride(500, 500, 1);
-        xgl.render(x.scene, x.camera);
-
-        console.log(scene)
-        //TODO: fix the geometry source
-        
-        const {height,width} =scene.children.find(g=>g.name ==="room").children[0].children[0]["geometry"]["parameters"]
-        const screenshot = xgl.domElement.toDataURL('image/png');
-        screenshotObject["src"] = screenshot;
-        screenshotObject["w"] = width;
-        screenshotObject["l"] = height;
-        addScreenshot(screenshotObject)
-        x.setSizeOverride(window.haxyPaxy.w,window.haxyPaxy.h)
-
-        window.postMessage({screenshotData: screenshot});
-    }
-
-    useEffect(
-        () => window.addEventListener("message", (e) => {
-
-            if (e.data === 'create screenshot') {
-
-                sendScreenshot();
-            }
-            if (e.data === 'export') {
-                const exporter = new  GLTFExporter();
-
-                exporter.parse(scene,function (gltf){
-                    console.log(gltf);
-                    const link = document.createElement( 'a' );
-                    link.style.display = 'none';
-                    document.body.appendChild( link ); // Firefox workaround, see #6594
-
-                    function save( blob, filename ) {
-
-                        link.href = URL.createObjectURL( blob );
-                        link.download = filename;
-                        link.click();
-
-                        // URL.revokeObjectURL( url ); breaks Firefox...
-
-                    }
-                    save(new Blob([gltf],{type:"application/octet-stream"}),'scen.glb');
-
-
-                },function ( error ) {
-
-                    console.log( 'An error happened' );
-
-                },
-                    {binary:true})
-
-
-            }
-
-        })
-        , []);
     return (
         <group name={"room"}
         onClick={(e) => {
@@ -162,7 +85,7 @@ const Room = ({floorDimensions}) => {
         }}
         >
         <Floor name="floor" data={floorDimensions} handler={addConeHandler}/>
-                <Wall
+        <Wall
         window={true}
         key={1}
         ref={wall1}
