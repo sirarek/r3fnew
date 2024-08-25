@@ -18,6 +18,6 @@ export async function saveData(values){
 
     const { data, error } = await db
         .from('r3f')
-        .upsert({data:JSON.stringify(values)})
+        .upsert({data:JSON.stringify(values),name:values.name })
         .select()
 }

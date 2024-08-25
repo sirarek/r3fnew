@@ -26,13 +26,15 @@ function SaveProject(props) {
         
         setShowForm(true)
     }
-    const handleSubmit = () => {
-                
-                saveData({floorX: floorX, floorY: floorY, thickness: thickness, wallsHeight: wallsHeight, chrs: chairs})
+    const handleSubmit = (_name) => {
+        
+        const name = _name ? _name : `project ${new Date()}`     
+        saveData({name:name, floorX, floorY: floorY, thickness: thickness, wallsHeight: wallsHeight, chrs: chairs})
+        setShowForm(false)
         }
-    return (<>
+    return (<> 
         <Button startIcon={<SaveAsIcon/>} onClick={ handleClick} type={"button"}></Button>
-    { showForm && <SaveFormPopUp isOpen={showForm} closeForm ={setShowForm}/>}
+    { showForm && <SaveFormPopUp isOpen={showForm} handleSubmit={handleSubmit} closeForm ={setShowForm}/>}
     </>
     );
 }

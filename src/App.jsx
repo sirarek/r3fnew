@@ -3,8 +3,22 @@ import {VRButton, ARButton, XR, Controllers, Hands} from '@react-three/xr'
 import PdfView from "./components/Pdfviewe";
 import UI from "./ui/Ui";
 import MessageHandler from "./utils/helper";
+import {useLoaderData} from "react-router-dom";
+import {getProject} from "./db/db";
+import useDimensionStore from "./store/store";
 
 function App({injectCanvas}) {
+    
+    const setFromdb = useDimensionStore(state => state.setFromDb)
+    const data =useLoaderData()
+       useEffect(() => {
+
+        if (data){
+                  console.log(data)
+
+                      setFromdb(JSON.parse(data.data))
+                }
+            }, []);
     return (
         <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
         <div>
@@ -21,4 +35,15 @@ function App({injectCanvas}) {
 }
 
 export default App;
+
+export async function loader({params}) {
+
+    const result = await getProject(params.projId);
+
+    if (result) {
+        return result[0]
+    }
+
+    return null
+}
 

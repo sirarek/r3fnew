@@ -10,11 +10,10 @@ import {
 } from "three";
 import Collider from "./components/Coliders";
 import {getProject} from "./db/db";
-import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
 import Movable from "./components/Movable";
-import { handleMessageExport, sendScreenshot } from "./utils/helpers";
-
+// import { useLoaderData } from "react-router-dom";
 const Room = ({floorDimensions}) => {
+
     const wallsHeight = useDimensionStore((state) => state.wallsHeight);
     const floorX = Number(useDimensionStore((state) => state.floorX));
     const floorY = Number(useDimensionStore((state) => state.floorY));
@@ -43,7 +42,6 @@ const Room = ({floorDimensions}) => {
         e.stopPropagation();
 
         console.log("adding chair");
-
         chairs.length < 1 &&
             addChair({
                 position: e.point.toArray(),
@@ -74,7 +72,6 @@ const Room = ({floorDimensions}) => {
             scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
         } else {
             scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
-
 
         }
     }, [wallsRestriction, angle]);
