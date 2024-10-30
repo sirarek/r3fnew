@@ -2,6 +2,8 @@ import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {useFrame, useThree} from "@react-three/fiber";
 import Floor from "./components/floor";
 import Wall from "./components/wall";
+import {Cage} from "./components/Cage-TAqDCvxcxd";
+import { Torture } from "./components/Torture Device-XVLSpgpSLd.jsx"
 import useDimensionStore from "./store/store";
 import {
     Vector3,
@@ -126,9 +128,11 @@ const Room = ({floorDimensions}) => {
 
             </Movable>
         <Collider>
-        <mesh position={[0,0.5,0]}>
+        {/*<Cage/>
+        <Torture/>
+        {/*<mesh position={[0,0.5,0]}>
         <boxGeometry args={[1,1,1]}/>
-        </mesh>
+            </mesh> */}
 
         </Collider>
 

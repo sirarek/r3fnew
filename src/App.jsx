@@ -1,6 +1,7 @@
 import React, {useRef, useState, useContext, useEffect, useMemo, useLayoutEffect} from "react";
 import {VRButton, ARButton, XR, Controllers, Hands} from '@react-three/xr'
 import PdfView from "./components/Pdfviewe";
+import AnchorTemporaryDrawer from "./ui/Config";
 import UI from "./ui/Ui";
 import MessageHandler from "./utils/helper";
 import {useLoaderData} from "react-router-dom";
@@ -26,8 +27,9 @@ function App({injectCanvas}) {
         {/*    <img id="button" width="100" src="files/arkit.png"/>*/}
         {/*</a>*/}
         <UI/>
-        <ARButton/>
+        {/*<AnchorTemporaryDrawer></AnchorTemporaryDrawer>*/}
         <PdfView width={800}/>
+        {/*<ARButton/>*/}
         </div>
         <div style={{width: '100%', position: 'relative', height: "100%"}} ref={injectCanvas}/>
         </div>

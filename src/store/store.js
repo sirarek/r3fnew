@@ -10,6 +10,7 @@ const useDimensionStore = create((set,get) => ({
     clickedChair: '',
     chairs:[],
     showPdf:false,
+    showConfig:false,
     P:true,
     selectedFurniture: "chair",
     screenShots:[],
@@ -56,6 +57,7 @@ const useDimensionStore = create((set,get) => ({
     })),
 
     setShowPdf:(bool)=>set(state=>({showPdf:bool})),
+    setShowConfig:(bool)=>set(state=>({showConfig:bool})),
     addScreenshot:(img)=>set(state=>({screenShots:[...state.screenShots,img]})),
 
     removeFromScreenshotList:(id)=>set(state=>({screenShots:state.screenShots.filter(item=>item.id !==id)})),

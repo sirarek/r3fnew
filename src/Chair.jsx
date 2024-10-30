@@ -248,6 +248,7 @@
 
 //export default Chair;
 
+import { Html } from "@react-three/drei"
 import {useLayoutEffect, useMemo, useRef, useState,} from "react";
 import ChairModel from "./components/chairModel";
 
@@ -259,6 +260,7 @@ import {
     useHelper,
 
 } from "@react-three/drei";
+
 import {Vector3, Matrix4, Box3, BoxHelper} from "three";
 import CabinetModel from "./components/CabinetModel";
 import CabinetMorphModel from "./components/CabinetMoph";
@@ -273,6 +275,7 @@ const Chair = (props) => {
     const chairRef = useRef();
     const itemRef = useRef("");
     const floorX = useDimensionStore((state) => state.floorX);
+    const setShowConfig = useDimensionStore((state) => state.setShowConfig);
     const floorY = useDimensionStore((state) => state.floorY);
     const clickedChair = useDimensionStore((state) => state.clickedChair);
     const [focus, setFocus] = useState(false)
@@ -290,9 +293,14 @@ const Chair = (props) => {
     let current = new Vector3();
 
     const chairOnClick = (d) => {
+        setShowConfig(true)
+
         d.stopPropagation();
         setClickedChair(d.eventObject.userData.id);
-        console.log("elo");
+        console.log("here!!!")
+        console.log(d);
+        console.log("endhere")
+        
     };
     const changeWidthHandler = (e, b) => {
 
@@ -367,7 +375,7 @@ const Chair = (props) => {
         matrix.current.copy(m);
 
     }, [d])
-    useHelper(chairRef, BoxHelper, "red")
+    //useHelper(chairRef, BoxHelper, "red")
 
 
     return (
