@@ -4,6 +4,7 @@ import HeightIcon from '@mui/icons-material/Height';
 
 import SliderInput from "../components/SliderInput";
 import {List, ListItem, ListItemIcon, ListItemText, styled} from "@mui/material";
+import {useTranslation} from "react-i18next";
 
 const DimensionSection = () => {
     const updateLength = useDimensionStore(state => state.changeY);
@@ -14,7 +15,7 @@ const DimensionSection = () => {
     const wallsHeight = useDimensionStore(state => state.wallsHeight);
     const updateThickness = useDimensionStore((state) => state.changeThickness);
     const thickness = useDimensionStore((state) => state.thickness);
-
+    const {t} = useTranslation();
 
   
     
@@ -32,17 +33,17 @@ const DimensionSection = () => {
     }
 
   
-    return (<List>
+    return <List>
         <ListItem key={"dimensions"} disablePadding>
 
             <ListItemIcon>
                 <Straighten/>
             </ListItemIcon>
-            <ListItemText primary={"dimensions"}/>
+            <ListItemText primary={t("dimensions")}/>
 
         </ListItem>
         <SliderInput
-            inputName={"Width"}
+            inputName={t("dim.width")}
             inputValue={width}
             inputHandler={handleWidthChange}
             sliderHandler={handleWidthChange}
@@ -56,7 +57,7 @@ const DimensionSection = () => {
             <TrendingFlat id="input-slider"/>
         </SliderInput>
         <SliderInput
-            inputName={"Length"}
+            inputName={t("dim.length")}
             inputValue={length}
             inputHandler={handleLengthChange}
             sliderHandler={handleLengthChange}
@@ -70,7 +71,7 @@ const DimensionSection = () => {
             <Straight/>
         </SliderInput>
         <SliderInput
-            inputName={"Height"}
+            inputName={t("dim.height")}
             inputValue={wallsHeight}
             inputHandler={handleHeightChange}
             sliderHandler={handleHeightChange}
@@ -84,7 +85,7 @@ const DimensionSection = () => {
             <HeightIcon/>
         </SliderInput>
         <SliderInput
-            inputName={"Wall Thickness"}
+            inputName={t("dim.wallThickness")}
             inputValue={thickness}
             inputHandler={handleThicknessChange}
             sliderHandler={handleThicknessChange}
@@ -97,6 +98,6 @@ const DimensionSection = () => {
             }}>
             <LineWeight/>
         </SliderInput>
-    </List>)
+    </List>
 }
 export default DimensionSection

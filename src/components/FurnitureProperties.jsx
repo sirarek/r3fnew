@@ -1,7 +1,7 @@
 import { Html } from "@react-three/drei"
-import {useRef,useState, useLayoutEffect} from "react"
+import {useRef,useLayoutEffect} from "react"
 import useDimensionStore from "../store/store"
-import {Text } from "@react-three/drei";
+
 const FurnitureProperties = ({id,changeWidthHandler,data}) =>{
 
 	const closeHandler =useDimensionStore(state =>state.clickChair)

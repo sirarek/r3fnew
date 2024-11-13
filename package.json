@@ -2,9 +2,11 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@eslint/js": "^9.13.0",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@react-pdf/renderer": "^3.4.0",
@@ -21,12 +23,17 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "globals": "^15.11.0",
+    "i18next": "^23.7.16",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "pdfmake": "^0.2.10",
     "postprocessing": "^6.33.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^15.1.1",
     "react-router-dom": "^6.21.2",
     "react-sizeme": "^3.0.2",
     "sort-by": "^1.2.0",
@@ -40,7 +47,10 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "lint": "eslint ./src  --report-unused-disable-directives --max-warnings 0 --fix",
+    "babel": "babel src --out-dir dist --extensions \".js,.jsx,.ts,.tsx\""
+
   },
   "eslintConfig": {
     "extends": [
@@ -61,8 +71,17 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
     "@react-three/babel": "^1.0.2",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
-    "create-vite": "^5.2.1"
+    "babel-plugin-i18next-extract": "^0.10.0",
+    "create-vite": "^5.2.1",
+    "eslint": "^9.13.0",
+    "eslint-plugin-react": "^7.37.2",
+    "i18next-scanner": "^4.6.0",
+    "vite-plugin-mkcert": "^1.17.6"
   }
 }

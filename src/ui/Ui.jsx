@@ -13,6 +13,7 @@ import ProjectSelector from "../components/ProjectSelector";
 import Pdfv2 from "../Pdf/Pdfv2";
 import ExportScene from "../components/ExportScene";
 import DebugButton from "./debug";
+import LanguageSelector from "./LanguageSelector.jsx";
 const UI = props => {
     let drawerWidth = 340; 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -40,6 +41,7 @@ const UI = props => {
             anchor="right"
         open={windowWidth > 1028}
         >
+            <LanguageSelector/>
     
             <SaveProject/>
             <ProjectSelector/>
