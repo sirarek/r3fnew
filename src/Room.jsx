@@ -13,6 +13,7 @@ import {
 import Collider from "./components/Coliders";
 import {getProject} from "./db/db";
 import Movable from "./components/Movable";
+import Extrusion from "./components/Table.jsx";
 // import { useLoaderData } from "react-router-dom";
 const Room = ({floorDimensions}) => {
 
@@ -44,7 +45,7 @@ const Room = ({floorDimensions}) => {
         e.stopPropagation();
 
         console.log("adding chair");
-        chairs.length < 1 &&
+        chairs.length < 0 &&
             addChair({
                 position: e.point.toArray(),
                 id: Math.random(),
@@ -120,21 +121,22 @@ const Room = ({floorDimensions}) => {
         rotation={[0,0, 0]}
         ax={"y"}
         />
-        <Movable>
-            <mesh name={"test"}castShadow receiveShadow position={[2,0.5 , 1]}>
-            <boxGeometry />
-            <meshStandardMaterial color="orange" />
-            </mesh>
+            <Extrusion/>
+        {/*<Movable>*/}
+        {/*    <mesh name={"test"}castShadow receiveShadow position={[2,0.5 , 1]}>*/}
+        {/*    <boxGeometry />*/}
+        {/*    <meshStandardMaterial color="orange" />*/}
+        {/*    </mesh>*/}
 
-            </Movable>
-        <Collider>
-        {/*<Cage/>
-        <Torture/>
-        {/*<mesh position={[0,0.5,0]}>
-        <boxGeometry args={[1,1,1]}/>
-            </mesh> */}
+        {/*    </Movable>*/}
+        {/*<Collider>*/}
+        {/*/!*<Cage/>*/}
+        {/*<Torture/>*/}
+        {/*/!*<mesh position={[0,0.5,0]}>*/}
+        {/*<boxGeometry args={[1,1,1]}/>*/}
+        {/*    </mesh> *!/*/}
 
-        </Collider>
+        {/*</Collider>*/}
 
         </group>
     );
