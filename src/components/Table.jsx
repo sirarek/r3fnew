@@ -65,9 +65,12 @@ export default function Extrusion() {
     }
     const curveData = [
         new Vector3(0.25, 0.25, 0.0),
-        new Vector3(0.2, 0.0, 0.2),
-        new Vector3(0.0, 0.0, 0.2),
-        new Vector3(0.0, 0.2, legHeight)]
+
+        new Vector3(1.1-legHeight, 0.0, 0.2),
+        new Vector3(0.0, 0, legHeight/2),
+
+
+        new Vector3(0.15, 0.25, legHeight)]
     const curve = new CatmullRomCurve3(curveData);
 
     return (
@@ -92,7 +95,7 @@ export default function Extrusion() {
 
             <mesh>
                 <meshStandardMaterial
-                    color="darkOrange"
+                    color="black"
                     side={DoubleSide}
                 />
                 <tubeGeometry args={[curve, 100, 0.01, 12, false]}/>
