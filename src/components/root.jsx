@@ -8,9 +8,11 @@ import Chairss from "../Chairss";
 import CameraControl from "./CameraContro";
 import Lights from "./Lights";
 import Postprocessing from "./Postprocessing";
-import React from "react";
+import React, {Suspense} from "react";
 import {XR} from "@react-three/xr";
 import SaveAsScreenshotButton from "./SaveAsScreenshotButton";
+import {Physics} from '@react-three/rapier';
+import MessageHandler from '../utils/helper';
 
 extend(THREE);
 const so = {
@@ -30,16 +32,21 @@ export function create3DCanvas() {
                 <color attach="background" args={["gray"]}/>
                 <Environment preset="apartment"/>
                 <Mline/>
-                <Room/>
-                <Chairss/>
-                {/* <TestBox></TestBox> */}
-                <CameraControl/>
+                <Suspense>
+                    <Physics debug>
 
-                <Lights/>
+                        <Room/>
+                        <Chairss/>
+                        {/* <TestBox></TestBox> */}
+                        <CameraControl/>
 
+                        <Lights/>
+                        <MessageHandler/>
 
-                <Postprocessing/>
-                {/*<ARComponent/>*/}
+                        <Postprocessing/>
+                        {/*<ARComponent/>*/}
+                    </Physics>
+                </Suspense>
             </XR>
         );
         return r3fState;
@@ -51,18 +58,19 @@ export function create3DCanvas() {
         if (!wrapper) return;
 
         wrapper.appendChild(canvas);
+        r3fState.getState().events.connect(wrapper);//Hack for visibility of html element
         const observer = new ResizeObserver(el => {
                 const {width, height} = el[0]["contentRect"];
                 console.log("zmiany")
                 console.log(el);
                 root.configure({size: {width: width, height: height}});
                 console.log(`window width: ${window.innerWidth} width from observer ${width} height: ${window.innerHeight} height from observer ${height}`)
-                window.haxyPaxy = {w:window.innerWidth,h:window.innerHeight}
+                window.haxyPaxy = {w: window.innerWidth, h: window.innerHeight}
             }
         );
 
         root.configure({size: {width: wrapper.clientWidth, height: wrapper.clientHeight}})
-//here
+        //here
         observer.observe(wrapper);
     };
 

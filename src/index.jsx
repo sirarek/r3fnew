@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import App from './App'
 
-import {loader as projectLoader} from "./Room";
+import {loader as projectLoader} from "./App";
 import * as THREE from 'three';
 import {extend,createRoot,events} from "@react-three/fiber";
 import {create3DCanvas} from "./components/root";
@@ -15,9 +15,10 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <App injectCanvas={injectCanvas} />,
-        // loader: projectLoader,
+        loader: projectLoader,
         children: [{
-                element: <App/>,
+
+            element: <App injectCanvas={injectCanvas}/>,
                 path: "/:projId",
             }]
     }]);

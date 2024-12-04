@@ -1,0 +1,102 @@
+import * as THREE from 'three';
+import { extend, createRoot, events } from "@react-three/fiber";
+import App from "../App";
+import { Environment } from "@react-three/drei";
+import Mline from "./MLine";
+import Room from "../Room";
+import Chairss from "../Chairss";
+import CameraControl from "./CameraContro";
+import Lights from "./Lights";
+import Postprocessing from "./Postprocessing";
+import React, { Suspense } from "react";
+import { XR } from "@react-three/xr";
+import SaveAsScreenshotButton from "./SaveAsScreenshotButton";
+import { Physics } from '@react-three/rapier';
+import MessageHandler from '../utils/helper';
+extend(THREE);
+const so = {
+  width: null,
+  height: null
+};
+export function create3DCanvas() {
+  const canvas = document.createElement('canvas');
+  const root = createRoot(canvas);
+  function extracted(size, dpr) {
+    if (size.width < 1 || size.height < 1) return null;
+    root.configure({
+      size: {
+        width: size.width,
+        height: size.height
+      },
+      events,
+      camera: {
+        position: [0, 0, 50]
+      }
+    });
+    const r3fState = root.render(/*#__PURE__*/React.createElement(XR, null, /*#__PURE__*/React.createElement("color", {
+      attach: "background",
+      args: ["gray"]
+    }), /*#__PURE__*/React.createElement(Environment, {
+      preset: "apartment"
+    }), /*#__PURE__*/React.createElement(Mline, null), /*#__PURE__*/React.createElement(Suspense, null, /*#__PURE__*/React.createElement(Physics, {
+      debug: true
+    }, /*#__PURE__*/React.createElement(Room, null), /*#__PURE__*/React.createElement(Chairss, null), /*#__PURE__*/React.createElement(CameraControl, null), /*#__PURE__*/React.createElement(Lights, null), /*#__PURE__*/React.createElement(MessageHandler, null), /*#__PURE__*/React.createElement(Postprocessing, null)))));
+    return r3fState;
+  }
+  const r3fState = extracted({});
+  const injectCanvas = wrapper => {
+    if (!wrapper) return;
+    wrapper.appendChild(canvas);
+    r3fState.getState().events.connect(wrapper); //Hack for visibility of html element
+    const observer = new ResizeObserver(el => {
+      const {
+        width,
+        height
+      } = el[0]["contentRect"];
+      console.log("zmiany");
+      console.log(el);
+      root.configure({
+        size: {
+          width: width,
+          height: height
+        }
+      });
+      console.log(`window width: ${window.innerWidth} width from observer ${width} height: ${window.innerHeight} height from observer ${height}`);
+      window.haxyPaxy = {
+        w: window.innerWidth,
+        h: window.innerHeight
+      };
+    });
+    root.configure({
+      size: {
+        width: wrapper.clientWidth,
+        height: wrapper.clientHeight
+      }
+    });
+    //here
+    observer.observe(wrapper);
+  };
+  const stateData = extracted({
+    width: 1,
+    height: 1
+  });
+  stateData.setState({
+    setSizeOverride(width, height, dpr) {
+      so.width = width;
+      so.height = height;
+      extracted({
+        width,
+        height,
+        dpr
+      });
+    },
+    resetSizeOverride() {
+      so.width = null;
+      so.height = null;
+    }
+  });
+  return {
+    injectCanvas,
+    r3fState
+  };
+}

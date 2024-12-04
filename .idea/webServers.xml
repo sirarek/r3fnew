@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="33bda38d-94ab-4ba6-abdf-2b789fbb6035" name="sirrarek">
+        <fileTransfer rootFolder="/usr/home/sirrarek/domains/sirrarek.usermd.net/public_html" accessType="SFTP" host="s55.mydevil.net" port="22" sshConfigId="2b539df5-b3d3-421a-a064-109a2bab501b" sshConfig="sirrarek@s55.mydevil.net:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import basicSsl from '@vitejs/plugin-basic-ssl'
+import mkcert from 'vite-plugin-mkcert'
 
 
 // https://vitejs.dev/config/
@@ -9,5 +10,8 @@ export default defineConfig({
         https: true,
     },
     base: '/',
-    plugins: [react(), basicSsl()]
+
+    plugins: [react(), mkcert()]
+
 })
+

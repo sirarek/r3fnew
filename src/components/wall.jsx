@@ -21,6 +21,7 @@ import {
 } from "three";
 import React from "react";
 import useDimensionStore from "../store/store";
+import Collider from "./Coliders";
 const door = new BoxGeometry();
 const Window = (props) => (
   <Subtraction {...props}>
@@ -66,6 +67,7 @@ const Wall = (props, ref) => {
   const x = props.position[0] > 0 ? -1 : 1;
   useLayoutEffect(() => console.log(x), [x]);
   return (
+    <Collider>
     <group ref={ref} position={props.position}>
       <mesh
         receiveShadow
@@ -100,6 +102,7 @@ const Wall = (props, ref) => {
         />
       </mesh>
     </group>
+    </Collider>
   );
 };
 export default React.forwardRef(Wall);

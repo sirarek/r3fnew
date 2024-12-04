@@ -1,0 +1,14 @@
+{
+  "en": "es",
+  "dimensions": "dimensiones",
+  "Capture Screenshot": "Captura de pantalla",
+  "dim": {
+    "width": "ancho",
+    "length": "longitud",
+    "height": "altura",
+    "wallThickness": "espesor de pared"
+
+  }
+
+
+}

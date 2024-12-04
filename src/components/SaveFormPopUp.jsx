@@ -18,9 +18,9 @@ const style = {
     p: 4,
 };
 
-export default function SaveFormPopUp({isOpen, closeForm}) {
+export default function SaveFormPopUp({isOpen, closeForm,handleSubmit}) {
 
-
+    const projectName = useRef();
     const handleClose = () => closeForm(false);
 
     return (
@@ -32,8 +32,8 @@ export default function SaveFormPopUp({isOpen, closeForm}) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style} display="flex" flexDirection={"column"}>
-                    <TextField fullWidth id="outlined-basic" label="Project name" variant="outlined"/>
-                    <Button>Save</Button>
+                    <TextField inputRef={projectName}fullWidth id="outlined-basic" label="Project name" variant="outlined"/>
+        <Button onClick={()=>handleSubmit(projectName.current.value)}>Save</Button>
                 </Box>
             </Modal>
         </div>

@@ -2,18 +2,21 @@ import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {useFrame, useThree} from "@react-three/fiber";
 import Floor from "./components/floor";
 import Wall from "./components/wall";
+import {Cage} from "./components/Cage-TAqDCvxcxd";
+import { Torture } from "./components/Torture Device-XVLSpgpSLd.jsx"
 import useDimensionStore from "./store/store";
 import {
     Vector3,
     Plane,
     PlaneHelper,
 } from "three";
-
+import Collider from "./components/Coliders";
 import {getProject} from "./db/db";
-import {GLTFExporter} from "three/examples/jsm/exporters/GLTFExporter";
-// import {useLoaderData} from "react-router-dom";
-
+import Movable from "./components/Movable";
+import Extrusion from "./components/Table.jsx";
+// import { useLoaderData } from "react-router-dom";
 const Room = ({floorDimensions}) => {
+
     const wallsHeight = useDimensionStore((state) => state.wallsHeight);
     const floorX = Number(useDimensionStore((state) => state.floorX));
     const floorY = Number(useDimensionStore((state) => state.floorY));
@@ -26,7 +29,6 @@ const Room = ({floorDimensions}) => {
     const angle = Math.asin(
         floorX / Math.sqrt(Math.pow(floorX, 2) + Math.pow(floorY, 2)),
     );
-
     const v3 = new Vector3(1, 0, 0).applyAxisAngle(new Vector3(0, 1, 0), angle);
     const plane = new Plane(v3, 0);
 
@@ -38,191 +40,104 @@ const Room = ({floorDimensions}) => {
     // console.log(data);
 
     const helper = new PlaneHelper(plane, wallsRestriction ? 100 : 0);
-    // const [showWall,setShowWall] = useState([100,100,100,100])  // const [showWall,setShowWall] = useState([100,100,100,100])
+    const [showWall,setShowWall] = useState([100,100,100,100])  // const [showWall,setShowWall] = useState([100,100,100,100])
     const addConeHandler = (e) => {
         e.stopPropagation();
 
         console.log("adding chair");
-
-        chairs.length < 5 &&
-        addChair({
-            position: e.point.toArray(),
-            id: Math.random(),
-            type: selectedFurniture,
-            dimensions: {},
-        });
+        chairs.length < 0 &&
+            addChair({
+                position: e.point.toArray(),
+                id: Math.random(),
+                type: selectedFurniture,
+                dimensions: {},
+            });
     };
-    const returnX = ()=>{
-        return floorX
-    }
-    const {scene, gl, camera,} = useThree();
-    const threeState = useThree(state => state.get);
-    let cam = camera.position.x;
+    const {scene,camera,} = useThree();
     const wall1 = useRef();
     const wall2 = useRef();
     const wall3 = useRef();
     const wall4 = useRef();
 
-    // useFrame((_) => {
-    //   // console.log()
-    //   wall1.current.visible = camera.position.x > wall1.current.position.x;
-    //   wall2.current.visible = camera.position.x < wall2.current.position.x;
-    //   wall3.current.visible = camera.position.z < -wall3.current.position.y;
-    //   wall4.current.visible = camera.position.z > -wall4.current.position.y;
-    // });
-    // useEffect(() => {
-    //   if (data){
-    //     console.log(data)
-//
-    //     setFromdb(JSON.parse(data.data))
-    //   }
-    //   console.log(angle);
-    //   if (!wallsRestriction) {
-    //     scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
-    //   } else {
-    //     scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
-//
-    //     scene.add(helper);
-    //   }
-    //   // console.log(scene)
-    // }, [wallsRestriction, angle,data]);
-    console.log(floorX)
-    const addScreenshot = useDimensionStore(state => state.addScreenshot)
-    const sendScreenshot = () => {
-        const x = threeState();
-        console.log("####debug###")
+    useFrame((_) => {
+        wall1.current.visible = camera.position.x > wall1.current.position.x;
+        wall2.current.visible = camera.position.x < wall2.current.position.x;
+        wall3.current.visible = camera.position.z < -wall3.current.position.y;
+        wall4.current.visible = camera.position.z > -wall4.current.position.y;
+    });
+    useEffect(() => {
+        // if (data){
+            //       console.log(data)
 
-        console.log(returnX())
-        console.log("####debug###")
-        const screenshotObject = {
-            id: crypto.randomUUID(),
-            src: "",
-            w:"",
-            l:""
-
-
-
+            //           setFromdb(JSON.parse(data.data))
+            //     }
+        if (!wallsRestriction) {
+            scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
+        } else {
+            scene.children = scene.children.filter((el) => el.type != "PlaneHelper");
 
         }
-
-        gl.render(scene, camera);
-
-
-        const xgl = x.gl;
-        x.setSizeOverride(500, 500, 1);
-
-
-
-
-        xgl.render(x.scene, x.camera);
-
-        const {height,width} =scene.children.find(g=>g.name ==="room").children[0]["geometry"]["parameters"]
-
-
-
-
-        const screenshot = xgl.domElement.toDataURL('image/png');
-        screenshotObject["src"] = screenshot;
-        screenshotObject["w"] = width;
-        screenshotObject["l"] = height;
-
-        addScreenshot(screenshotObject)
-        x.setSizeOverride(window.haxyPaxy.w,window.haxyPaxy.h)
-
-        window.postMessage({screenshotData: screenshot});
-    }
-
-    useEffect(
-        () => window.addEventListener("message", (e) => {
-
-            if (e.data === 'create screenshot') {
-
-                sendScreenshot();
-            }
-            if (e.data === 'export') {
-                const exporter = new  GLTFExporter();
-
-                exporter.parse(scene,function (gltf){
-                    console.log(gltf);
-                        const link = document.createElement( 'a' );
-                        link.style.display = 'none';
-                        document.body.appendChild( link ); // Firefox workaround, see #6594
-
-                        function save( blob, filename ) {
-
-                            link.href = URL.createObjectURL( blob );
-                            link.download = filename;
-                            link.click();
-
-                            // URL.revokeObjectURL( url ); breaks Firefox...
-
-                        }
-                    save(gltf,'scen');
-
-
-                },function ( error ) {
-
-                        console.log( 'An error happened' );
-
-                    },
-                    {})
-
-
-            }
-
-        })
-        , []);
+    }, [wallsRestriction, angle]);
     return (
         <group name={"room"}
-            rotation={[-Math.PI / 2, 0, 0]}
-            onClick={(e) => {
-                console.log(e);
-            }}
+        onClick={(e) => {
+            console.log(e);
+        }}
         >
-            {/* <group rotation={[-Math.PI / 2, 0, -Math.PI / 4]}> */}
-            <Floor data={floorDimensions} handler={addConeHandler}/>
+        <Floor name="floor" data={floorDimensions} handler={addConeHandler}/>
+        <Wall
+        window={true}
+        key={1}
+        ref={wall1}
+        geometry={[wallsHeight, floorY + thickness * 2, thickness]}
+        position={[-floorX / 2 - 0.5*thickness,wallsHeight/2,0]}
+        rotation={[Math.PI/2, -Math.PI/2, 0]}
+        plane={plane}
+        />
+        <Wall
+        window={true}
+        plane={plane}
+        ref={wall2}
+        key={2}
+        geometry={[wallsHeight, floorY + thickness * 2, thickness]}
+        position={[floorX / 2 +thickness/2,wallsHeight/2,0]}
+        rotation={[Math.PI/2, Math.PI/2, 0]}
+        ax={"x"}
+        />
 
-            <Wall
-                window={true}
-                // handler={addConeHandler}
-                key={1}
-                ref={wall1}
-                geometry={[wallsHeight, floorY + thickness * 2, thickness]}
-                position={[-floorX / 2 - thickness / 2, 0, wallsHeight / 2]}
-                rotation={[0, Math.PI / 2, 0]}
-                plane={plane}
-            ></Wall>
-            <Wall
-                window={true}
-                plane={plane}
-                ref={wall2}
-                // handler={addConeHandler}
-                key={2}
-                geometry={[wallsHeight, floorY + thickness * 2, thickness]}
-                position={[floorX / 2 + thickness / 2, 0, wallsHeight / 2]}
-                rotation={[0, -Math.PI / 2, 0]}
-                ax={"x"}
-            />
+        <Wall
+        plane={plane}
+        ref={wall3}
+        key={3}
+        geometry={[floorX + thickness * 2, wallsHeight, thickness]} 
+        position={[0,wallsHeight/2,floorX/2 + 0.5*thickness ]} 
+        rotation={[0,  0 , 0]} />
+        <Wall
+        plane={plane}
+        ref={wall4}
+        key={4}
+        geometry={[floorX + thickness * 2, wallsHeight, thickness]}
+        position={[0,wallsHeight/2,-floorY/2 -0.5*thickness]}
+        rotation={[0,0, 0]}
+        ax={"y"}
+        />
+            <Extrusion/>
+        {/*<Movable>*/}
+        {/*    <mesh name={"test"}castShadow receiveShadow position={[2,0.5 , 1]}>*/}
+        {/*    <boxGeometry />*/}
+        {/*    <meshStandardMaterial color="orange" />*/}
+        {/*    </mesh>*/}
 
-            <Wall
-                plane={plane}
-                ref={wall3}
-                // handler={addConeHandler}
-                key={3}
-                geometry={[floorX + thickness * 2, wallsHeight, thickness]}
-                position={[0, -floorY / 2 - thickness / 2, wallsHeight / 2]}
-                rotation={[-Math.PI / 2, 0, 0]}
-            />
-            <Wall
-                plane={plane}
-                ref={wall4}
-                // handler={addConeHandler}
-                key={4}
-                geometry={[floorX + thickness * 2, wallsHeight, thickness]}
-                position={[0, floorY / 2 + thickness / 2, wallsHeight / 2]}
-                rotation={[Math.PI / 2, 0, 0]}
-                ax={"y"}
-            ></Wall>
+        {/*    </Movable>*/}
+        {/*<Collider>*/}
+        {/*/!*<Cage/>*/}
+        {/*<Torture/>*/}
+        {/*/!*<mesh position={[0,0.5,0]}>*/}
+        {/*<boxGeometry args={[1,1,1]}/>*/}
+        {/*    </mesh> *!/*/}
+
+        {/*</Collider>*/}
+
         </group>
     );
 };
