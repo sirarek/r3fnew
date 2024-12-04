@@ -16,6 +16,7 @@ const useDimensionStore = create((set,get) => ({
     screenShots:[],
     coliders : new Set(),
     selectFurniture: ((item)=>{set(state=>({selectedFurniture:item}))}),
+    legHeight:0.6,
 
     roomsize :(state)=>{get({width:state.floorX, height:state.wallsHeight,depth:state.floorY})},
 
@@ -32,6 +33,7 @@ const useDimensionStore = create((set,get) => ({
 
     addCollider:(chair)=>set(state=>({chairs:[...state.chairs,chair]})),
     changeWallsHeight:(height)=>set(state=>({wallsHeight:height})),
+    changeLegHeight:(height)=>set(state=>({legHeight:height})),
     changeX:(x)=>set(state=>({floorX:x})),
     changeY:(y)=>set(state=>({floorY:y})),
     changeThickness:(thickness)=>set(state=>({thickness:thickness})),

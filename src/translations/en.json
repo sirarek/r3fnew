@@ -5,7 +5,8 @@
     "width": "width",
     "length": "length",
     "height": "height",
-    "wallThickness": "wall thickness"
+    "wallThickness": "wall thickness",
+    "legHeight": "leg height"
 
 
 
