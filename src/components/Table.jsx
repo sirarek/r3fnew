@@ -64,10 +64,10 @@ export default function Extrusion() {
         depth: legHeight,
     }
     const curveData = [
-        new Vector3(0.2, 0.2, 0),
-        new Vector3(0.3, 0.1, 0),
-        new Vector3(0.1, 0.2, 0),
-        new Vector3(0.2, 0.2, legHeight)]
+        new Vector3(0.25, 0.25, 0.0),
+        new Vector3(0.2, 0.0, 0.2),
+        new Vector3(0.0, 0.0, 0.2),
+        new Vector3(0.0, 0.2, legHeight)]
     const curve = new CatmullRomCurve3(curveData);
 
     return (
