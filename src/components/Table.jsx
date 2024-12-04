@@ -56,14 +56,19 @@ export default function Extrusion() {
 
     const extrudeSettings = {
         bevelEnabled: false,
-        depth: 0.1,
+        depth: 0.04,
     }
 
     const extrudeSettingsLeg = {
         bevelEnabled: false,
         depth: legHeight,
     }
-
+    const curveData = [
+        new Vector3(0.2, 0.2, 0),
+        new Vector3(0.3, 0.1, 0),
+        new Vector3(0.1, 0.2, 0),
+        new Vector3(0.2, 0.2, legHeight)]
+    const curve = new CatmullRomCurve3(curveData);
 
     return (
 
@@ -72,7 +77,7 @@ export default function Extrusion() {
 
                 <extrudeGeometry args={[shapeRef.current, extrudeSettings]}/>
                 <meshStandardMaterial
-                    color="darkBlue"
+                    color="darkOrange"
                     side={DoubleSide}
                 />
             </mesh>
@@ -80,9 +85,17 @@ export default function Extrusion() {
 
                 <extrudeGeometry args={[rectShape, extrudeSettingsLeg]}/>
                 <meshStandardMaterial
-                    color="darkBlue"
+                    color="darkOrange"
                     side={DoubleSide}
                 />
+            </mesh>
+
+            <mesh>
+                <meshStandardMaterial
+                    color="darkOrange"
+                    side={DoubleSide}
+                />
+                <tubeGeometry args={[curve, 100, 0.01, 12, false]}/>
             </mesh>
 
 
